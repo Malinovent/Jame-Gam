@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.U2D.Sprites;
 using UnityEngine;
 
 public enum BrushStates
@@ -22,11 +23,19 @@ public class PaintBrush : MonoBehaviour
     public ColorsEnum CurrentColor = ColorsEnum.RED;
     [SerializeField] private GameObject strokePrefab;
 
+    [Header("Paint Materials")]
+    [SerializeField] Material redMaterial;
+    [SerializeField] Material blueMaterial;
+    [SerializeField] Material greenMaterial;
+    [SerializeField] Material yellowMaterial;
+
     private LineRenderer currentStroke;
+    private Material currentPaintMaterial;
 
     private void Start()
     {
         ChangeBrushColor(CurrentColor);
+        currentPaintMaterial = redMaterial;
     }
 
     // Update is called once per frame
@@ -51,21 +60,25 @@ public class PaintBrush : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             ChangeBrushColor(ColorsEnum.RED);
+            currentPaintMaterial = redMaterial;
         }
 
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
-            ChangeBrushColor(ColorsEnum.GREEN);     
+            ChangeBrushColor(ColorsEnum.GREEN);
+            currentPaintMaterial = greenMaterial;
         }
 
         if (Input.GetKeyDown(KeyCode.Alpha3))
         {
-            ChangeBrushColor(ColorsEnum.BLUE);           
+            ChangeBrushColor(ColorsEnum.BLUE);
+            currentPaintMaterial = blueMaterial;
         }
 
         if (Input.GetKeyDown(KeyCode.Alpha4))
         {
-            ChangeBrushColor(ColorsEnum.YELLOW);           
+            ChangeBrushColor(ColorsEnum.YELLOW);
+            currentPaintMaterial = yellowMaterial;
         }
     }
 
@@ -116,6 +129,7 @@ public class PaintBrush : MonoBehaviour
         return node;
     }
 
+    private int lineRendererSortingOrder = 0;
     void SetPaintState()
     { 
         //Paint Mode
@@ -123,9 +137,12 @@ public class PaintBrush : MonoBehaviour
         {
             currentStates = BrushStates.PAINTING;
 
-          
             GameObject lineObject = Instantiate(strokePrefab);
             currentStroke = lineObject.GetComponent<LineRenderer>();
+            currentStroke.material = currentPaintMaterial;
+            lineRendererSortingOrder += 1;
+            currentStroke.sortingOrder = lineRendererSortingOrder;
+
             currentStroke.positionCount = 0;
         }
 

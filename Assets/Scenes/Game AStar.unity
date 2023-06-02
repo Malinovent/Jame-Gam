@@ -8961,6 +8961,10 @@ MonoBehaviour:
   nodeGrid: {fileID: 720888667}
   CurrentColor: 0
   strokePrefab: {fileID: 7478856498082174961, guid: d6d28d6b67598a843b6df0057215fbb8, type: 3}
+  redMaterial: {fileID: 2100000, guid: a6b09178e3226ed4698ea092f153402a, type: 2}
+  blueMaterial: {fileID: 2100000, guid: 6007eba7a77b6f34b809f08e654c4417, type: 2}
+  greenMaterial: {fileID: 2100000, guid: 83f670425a0abb344be0b7e2bfcd7f2f, type: 2}
+  yellowMaterial: {fileID: 2100000, guid: b9955df8884574e4f8c957809081f24c, type: 2}
 --- !u!1 &722759873
 GameObject:
   m_ObjectHideFlags: 1
