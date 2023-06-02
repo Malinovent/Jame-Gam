@@ -38,6 +38,13 @@ public class NodeGrid : MonoBehaviour
     {
         int x = Mathf.RoundToInt(worldPosition.x);
         int y = Mathf.RoundToInt(worldPosition.y);
+
+        if (x < 0 || x >= width || y < 0 || y >= height)
+        {
+            Debug.Log("There is no valid node at this position");
+            return null;
+        }
+
         return grid[y].row[x];
     }
 
@@ -97,6 +104,19 @@ public class NodeGrid : MonoBehaviour
             foreach (Node n in nodeRow.row)
             {
                 n.UpdateSpriteColor();
+            }
+        }
+    }
+
+    private bool SpriteRenderersOn = true;
+    public void ToggleAllNodeSpriteRenderers()
+    {
+        SpriteRenderersOn = !SpriteRenderersOn;
+        foreach (NodeRow nodeRow in grid)
+        {
+            foreach (Node n in nodeRow.row)
+            {         
+                n.GetComponent<SpriteRenderer>().enabled = SpriteRenderersOn;
             }
         }
     }

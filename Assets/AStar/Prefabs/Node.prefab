@@ -53,7 +53,7 @@ MonoBehaviour:
   hCost: 0
   parent: {fileID: 0}
   CurrentColor: 1
-  spriteRenderer: {fileID: 0}
+  spriteRenderer: {fileID: 7554721257332633319}
 --- !u!212 &7554721257332633319
 SpriteRenderer:
   m_ObjectHideFlags: 0

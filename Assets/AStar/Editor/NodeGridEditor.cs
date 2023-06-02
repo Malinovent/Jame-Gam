@@ -19,5 +19,10 @@ public class NodeGridEditor : Editor
         {
             nodeGrid.UpdateAllNodeColors();
         }
+
+        if (GUILayout.Button("Toggle all node sprite renderers"))
+        {
+            nodeGrid.ToggleAllNodeSpriteRenderers();
+        }
     }
 }
