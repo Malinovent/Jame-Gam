@@ -18,17 +18,5 @@ public class RoadSegment : MonoBehaviour
         //SetEdgeColliders();
     }
 
-    private void SetEdgeColliders()
-    {
-
-        // Get the positions from the LineRenderer
-        Vector3[] positions = new Vector3[lineRenderer.positionCount];
-        lineRenderer.GetPositions(positions);
-
-        // Convert the positions to 2D
-        Vector2[] positions2D = positions.Select(p => new Vector2(p.x, p.y)).ToArray();
-
-        // Update the EdgeCollider2D with the new positions
-        edgeCollider2D.points = positions2D;
-    }
+   
 }

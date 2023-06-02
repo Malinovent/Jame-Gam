@@ -1,9 +1,9 @@
 
 public enum ColorsEnum
 {
-    Red,
-    Green, 
-    Blue,
-    Yellow
+    RED,
+    GREEN, 
+    BLUE,
+    YELLOW
 
 }
