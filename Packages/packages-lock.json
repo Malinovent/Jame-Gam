@@ -183,6 +183,7 @@
       },
       "url": "https://packages.unity.com"
     },
+<<<<<<< Updated upstream
     "com.unity.toolchain.win-x86_64-linux-x86_64": {
       "version": "2.0.5",
       "depth": 0,
@@ -190,12 +191,20 @@
       "dependencies": {
         "com.unity.sysroot": "2.0.6",
         "com.unity.sysroot.linux-x86_64": "2.0.5"
+=======
+    "com.unity.textmeshpro": {
+      "version": "3.0.6",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {
+        "com.unity.ugui": "1.0.0"
+>>>>>>> Stashed changes
       },
       "url": "https://packages.unity.com"
     },
     "com.unity.ugui": {
       "version": "1.0.0",
-      "depth": 2,
+      "depth": 1,
       "source": "builtin",
       "dependencies": {
         "com.unity.modules.ui": "1.0.0",
