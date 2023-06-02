@@ -12,7 +12,7 @@ public class CurrentColorUI : MonoBehaviour
     [SerializeField] Color Blue;
     [SerializeField] Color Yellow;
 
-    private void Start()
+    private void Awake()
     {
         image = GetComponent<Image>();
     }
