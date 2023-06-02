@@ -14,6 +14,9 @@ public class AStar : MonoBehaviour
         HashSet<Node> closedSet = new HashSet<Node>();
         openSet.Add(startNode);
 
+        Node closestReachableNode = startNode;
+        int closestNodeDist = GetDistance(startNode, targetNode);
+
         while (openSet.Count > 0)
         {
             Node currentNode = openSet[0];
@@ -28,9 +31,11 @@ public class AStar : MonoBehaviour
             openSet.Remove(currentNode);
             closedSet.Add(currentNode);
 
-            if (currentNode == targetNode)
+            int currentDist = GetDistance(currentNode, targetNode);
+            if (currentDist < closestNodeDist)
             {
-                return RetracePath(startNode, targetNode);
+                closestReachableNode = currentNode;
+                closestNodeDist = currentDist;
             }
 
             foreach (Node neighbor in nodeGrid.GetNeighbours(currentNode))
@@ -56,8 +61,8 @@ public class AStar : MonoBehaviour
             }
         }
 
-        // If there's no path, return null
-        return null;
+        // If there's no path to the exact target, return the path to the closest reachable node
+        return RetracePath(startNode, closestReachableNode);
     }
 
     List<Node> RetracePath(Node startNode, Node endNode)
