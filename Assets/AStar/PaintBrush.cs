@@ -1,7 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor.U2D.Sprites;
 using UnityEngine;
 
 public enum BrushStates
@@ -102,7 +99,8 @@ public class PaintBrush : MonoBehaviour
         }
 
         //Design - Should this paint on node?
-        AddPointToLineRenderer(node.worldPosition);
+        //AddPointToLineRenderer(node.worldPosition);
+        AddPointToLineRenderer(GetMouseWorldPosition());
     }
 
     void DoErase()
@@ -118,10 +116,19 @@ public class PaintBrush : MonoBehaviour
         }
     }
 
-    public Node GetNodeFromMousePosition()
+    public Vector3 GetMouseWorldPosition()
     {
         Vector2 mousePos = Input.mousePosition;
         Vector3 worldPos = Camera.main.ScreenToWorldPoint(mousePos);
+        worldPos.z = 1;
+
+        return worldPos;
+    }
+
+    public Node GetNodeFromMousePosition()
+    {
+
+        Vector3 worldPos = GetMouseWorldPosition();
 
         //Debug.Log("Mouse pos is " + mousePos + " and world pos is " + worldPos);
 

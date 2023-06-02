@@ -12,8 +12,10 @@ public class NodeRow
 public class NodeGrid : MonoBehaviour
 {
     public int width, height;
+    public float nodeSpacing = 1f;
     public GameObject nodePrefab;
     public NodeRow[] grid;
+    
 
 
     public void CreateGrid()
@@ -27,7 +29,7 @@ public class NodeGrid : MonoBehaviour
 
             for (int x = 0; x < width; x++)
             {
-                GameObject nodeObj = Instantiate(nodePrefab, new Vector3(x, y, 0), Quaternion.identity, this.transform);
+                GameObject nodeObj = Instantiate(nodePrefab, new Vector3(x * nodeSpacing, y * nodeSpacing, 0), Quaternion.identity, this.transform);
                 grid[y].row[x] = nodeObj.GetComponent<Node>();
                 grid[y].row[x].Initialize(x, y, true);
             }
