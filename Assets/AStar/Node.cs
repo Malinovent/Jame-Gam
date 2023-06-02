@@ -12,7 +12,7 @@ public class Node : MonoBehaviour
     public Node parent;
     public ColorsEnum CurrentColor;
 
-    [SerializeField] SpriteRenderer spriteRenderer;
+    SpriteRenderer spriteRenderer;
 
     public int fCost
     {
@@ -40,6 +40,9 @@ public class Node : MonoBehaviour
         Color color;
         switch (CurrentColor)
         {
+            case ColorsEnum.NONE:
+                color = Color.white;
+                break;
             case ColorsEnum.RED:
                 color = Color.red;
                 break;
@@ -63,7 +66,10 @@ public class Node : MonoBehaviour
 
     public void UpdateSpriteColor()
     {
+#if UNITY_EDITOR
+        //To do delete this line when ready for build
         SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
+#endif
         if (spriteRenderer != null)
         {
             spriteRenderer.color = GetColorFromEnum();

@@ -13,6 +13,24 @@ public class CarController_AStar : MonoBehaviour
     private List<Node> path;
     private int pathIndex = 0;
 
+    public int PathIndex { 
+        get => pathIndex;
+        set 
+        {
+            pathIndex = value;
+            //Debug.Log(pathIndex);
+        }
+    }
+    private void OnEnable()
+    {
+        PaintBrush.OnGridChanged += UpdatePath;
+    }
+
+    private void OnDisable()
+    {
+        PaintBrush.OnGridChanged -= UpdatePath;
+    }
+
     private void Start()
     {
         if (destination != null)
@@ -22,21 +40,47 @@ public class CarController_AStar : MonoBehaviour
     }
 
     // Sets the destination of the car
-    public void SetDestination(Node destination)
+    public void SetDestination(Node newDestination)
     {
-        path = pathfinding.FindPath(this.transform.position, destination.transform.position, color);
-        if (path != null && path.Count > 0)
+        List<Node> newPath = pathfinding.FindPath(this.transform.position, newDestination.transform.position, color);
+
+        if (newPath != null && newPath.Count > 0)
         {
-            pathIndex = 0;
+            destination = newDestination;
+            path = newPath;
+            PathIndex = 0;
+        }
+        else
+        {
+            // If no valid path was found, move along the current path
+            //MoveAlongCurrentPath();
+        }
+    }
+
+    private void MoveAlongCurrentPath()
+    {
+        // If the car is already at the end of the path, do nothing
+        if (path == null || PathIndex >= path.Count) return;
+
+        // Move towards the next node in the path
+        Node nextNode = path[PathIndex];
+        transform.position = Vector3.MoveTowards(transform.position, nextNode.worldPosition, speed * Time.deltaTime);
+
+        // Check if the car has reached the next node
+        if (Vector3.Distance(transform.position, nextNode.worldPosition) < 0.01f)
+        {
+            // Go to the next node in the path
+            PathIndex++;
         }
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (path != null && pathIndex < path.Count)
+        // If a valid path is available, move towards the target
+        if (path != null && PathIndex < path.Count)
         {
-            Node targetNode = path[pathIndex];
+            Node targetNode = path[PathIndex];
 
             // Move towards the target node
             transform.position = Vector3.MoveTowards(transform.position, targetNode.worldPosition, speed * Time.deltaTime);
@@ -44,8 +88,17 @@ public class CarController_AStar : MonoBehaviour
             // Check if we've reached the target node
             if (Vector3.Distance(transform.position, targetNode.worldPosition) < 0.01f)
             {
-                pathIndex++;
+                PathIndex++;
             }
         }
+        else
+        {
+           // MoveAlongCurrentPath();
+        }
+    }
+
+    void UpdatePath()
+    {
+        SetDestination(destination);
     }
 }
