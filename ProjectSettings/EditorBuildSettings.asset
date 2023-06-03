@@ -6,9 +6,17 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+<<<<<<< Updated upstream
     path: Assets/_Build/Main Menu.unity
     guid: 6fe8e9e658c88a141838de94473d9bec
   - enabled: 1
     path: Assets/Scenes/Game AStar_60x30.unity
     guid: f4ed53a4285d96d4089475528211be80
+=======
+    path: Assets/Scenes/Main Menu.unity
+    guid: 0ba0ba681895e454590f9f144b419788
+  - enabled: 1
+    path: Assets/Scenes/Game AStar_Denser.unity
+    guid: 79ad7dcbcba9cf645b5076bb8e1372e7
+>>>>>>> Stashed changes
   m_configObjects: {}
