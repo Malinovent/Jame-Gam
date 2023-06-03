@@ -47,9 +47,9 @@ TagManager:
   - name: Road
     uniqueID: 3023861097
     locked: 0
-  - name: Car
-    uniqueID: 3198581
-    locked: 0
   - name: Brush
     uniqueID: 3342326189
+    locked: 0
+  - name: Car
+    uniqueID: 3198581
     locked: 0

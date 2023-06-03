@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class Node : MonoBehaviour
 {
+    public bool isMutable = true;
     public bool walkable = true;
     public Vector3 worldPosition;
     public int gridX, gridY;
@@ -27,12 +28,21 @@ public class Node : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
-    public void Initialize(int _gridX, int _gridY, bool _walkable)
+    public void Initialize(int _gridX, int _gridY, Vector3 worldPosition, bool _walkable)
     {
         gridX = _gridX;
         gridY = _gridY;
         walkable = _walkable;
-        worldPosition = new Vector3(gridX, gridY, 0);
+        this.worldPosition = worldPosition;
+    }
+
+    public void ChangeColor(ColorsEnum newColor)
+    {
+        if (isMutable)
+        {
+            CurrentColor = newColor;
+            UpdateSpriteColor();
+        }
     }
 
     public Color GetColorFromEnum()

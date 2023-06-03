@@ -29,25 +29,24 @@ public class NodeGrid : MonoBehaviour
 
             for (int x = 0; x < width; x++)
             {
-                GameObject nodeObj = Instantiate(nodePrefab, new Vector3(x * nodeSpacing, y * nodeSpacing, 0), Quaternion.identity, this.transform);
+                Vector3 nodeWorldPosition = new Vector3(x * nodeSpacing, y * nodeSpacing, 0);
+                GameObject nodeObj = Instantiate(nodePrefab, nodeWorldPosition, Quaternion.identity, this.transform);
+                
                 grid[y].row[x] = nodeObj.GetComponent<Node>();
-                grid[y].row[x].Initialize(x, y, true);
+                grid[y].row[x].Initialize(x, y, nodeWorldPosition, true);
             }
         }
     }
 
     public Node NodeFromWorldPoint(Vector3 worldPosition)
     {
-        int x = Mathf.RoundToInt(worldPosition.x);
-        int y = Mathf.RoundToInt(worldPosition.y);
+        float x = worldPosition.x / nodeSpacing;
+        float y = worldPosition.y / nodeSpacing;
 
-        if (x < 0 || x >= width || y < 0 || y >= height)
-        {
-            Debug.Log("There is no valid node at this position");
-            return null;
-        }
+        int xInt = Mathf.Clamp(Mathf.RoundToInt(x), 0, width - 1);
+        int yInt = Mathf.Clamp(Mathf.RoundToInt(y), 0, height - 1);
 
-        return grid[y].row[x];
+        return grid[yInt].row[xInt];
     }
 
     public List<Node> GetNeighbours(Node node)
@@ -74,30 +73,6 @@ public class NodeGrid : MonoBehaviour
         return neighbours;
     }
 
-    void OnDrawGizmos()
-    {
-        if (grid != null)
-        {
-            //Debug.Log("Updating Gizmos");
-            foreach (NodeRow nodeRow in grid)
-            {
-                foreach (Node n in nodeRow.row)
-                {
-                    //Gizmos.color = (n.walkable) ? n.GetColorFromEnum() : Color.white;
-                    n.UpdateSpriteColor();
-                    //Gizmos.DrawCube(n.worldPosition, Vector3.one * 0.5f);
-
-                    List<Node> neighbours = GetNeighbours(n);
-                    foreach (Node neighbour in neighbours)
-                    {
-                        Gizmos.color = new Color(1, 1, 1, 0.1f);
-                        Gizmos.DrawLine(n.transform.position, neighbour.transform.position);
-                        //SceneView.RepaintAll();
-                    }
-                }
-            }
-        }
-    }
 
     public void UpdateAllNodeColors()
     {
@@ -119,6 +94,45 @@ public class NodeGrid : MonoBehaviour
             foreach (Node n in nodeRow.row)
             {         
                 n.GetComponent<SpriteRenderer>().enabled = SpriteRenderersOn;
+            }
+        }
+    }
+
+    public void DestroyAllNodes()
+    {
+        foreach (NodeRow nodeRow in grid)
+        {
+            foreach (Node n in nodeRow.row)
+            {
+                DestroyImmediate(n);
+            }
+        }
+
+        grid = null;
+    }
+
+
+    void OnDrawGizmos()
+    {
+        if (grid != null)
+        {
+            //Debug.Log("Updating Gizmos");
+            foreach (NodeRow nodeRow in grid)
+            {
+                foreach (Node n in nodeRow.row)
+                {
+                    //Gizmos.color = (n.walkable) ? n.GetColorFromEnum() : Color.white;
+                    n.UpdateSpriteColor();
+                    Gizmos.DrawCube(n.worldPosition, Vector3.one * 0.5f);
+
+                    List<Node> neighbours = GetNeighbours(n);
+                    foreach (Node neighbour in neighbours)
+                    {
+                        Gizmos.color = new Color(1, 1, 1, 0.1f);
+                        Gizmos.DrawLine(n.worldPosition, neighbour.worldPosition);
+                        //SceneView.RepaintAll();
+                    }
+                }
             }
         }
     }

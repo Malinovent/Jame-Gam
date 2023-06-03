@@ -12,6 +12,7 @@ public class NodeGridEditor : Editor
 
         if (GUILayout.Button("Generate Nodes"))
         {
+            //nodeGrid.DestroyAllNodes();
             nodeGrid.CreateGrid();
         }
 
@@ -23,6 +24,11 @@ public class NodeGridEditor : Editor
         if (GUILayout.Button("Toggle all node sprite renderers"))
         {
             nodeGrid.ToggleAllNodeSpriteRenderers();
+        }
+
+        if (GUILayout.Button("Delete all nodes")) 
+        {
+            nodeGrid.DestroyAllNodes();
         }
     }
 }

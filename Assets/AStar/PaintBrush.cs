@@ -90,16 +90,19 @@ public class PaintBrush : MonoBehaviour
         Node node = GetNodeFromMousePosition();
         if (node)
         {
-            
-           // Debug.Log("Found node at grid location: " + node.gridX + ", " + node.gridY);
-            node.CurrentColor = CurrentColor;
-            node.UpdateSpriteColor();
+
+            // Debug.Log("Found node at grid location: " + node.gridX + ", " + node.gridY);
+            node.ChangeColor(CurrentColor);   
         
             OnGridChanged?.Invoke();
         }
 
-        //Design - Should this paint on node?
-        //AddPointToLineRenderer(node.worldPosition);
+        if (!node.isMutable)
+        {
+            currentStates = BrushStates.NONE;
+            return;
+        }
+
         AddPointToLineRenderer(GetMouseWorldPosition());
     }
 
