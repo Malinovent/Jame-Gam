@@ -29,6 +29,20 @@ public class PaintBrush : MonoBehaviour
     private LineRenderer currentStroke;
     private Material currentPaintMaterial;
 
+    public static PaintBrush Singleton;
+
+    private void Awake()
+    {
+        if (Singleton == null)
+        {
+            Singleton = this;
+        }
+        else
+        {
+            Destroy(this);
+        }
+    }
+
     private void Start()
     {
         ChangeBrushColor(CurrentColor);
@@ -76,6 +90,29 @@ public class PaintBrush : MonoBehaviour
         {
             ChangeBrushColor(ColorsEnum.YELLOW);
             currentPaintMaterial = yellowMaterial;
+        }
+    }
+
+    public void ChangeMaterial(ColorsEnum newColor)
+    {
+        switch (newColor)
+        { 
+            case ColorsEnum.RED:
+                ChangeBrushColor(ColorsEnum.RED);
+                currentPaintMaterial = redMaterial;
+                break;
+            case ColorsEnum.GREEN:
+                ChangeBrushColor(ColorsEnum.GREEN);
+                currentPaintMaterial = greenMaterial;
+                break;
+            case ColorsEnum.BLUE:
+                ChangeBrushColor(ColorsEnum.BLUE);
+                currentPaintMaterial = blueMaterial;
+                break;
+            case ColorsEnum.YELLOW:
+                ChangeBrushColor(ColorsEnum.YELLOW);
+                currentPaintMaterial = yellowMaterial;
+                break;
         }
     }
 

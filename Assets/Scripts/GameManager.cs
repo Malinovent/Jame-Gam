@@ -1,7 +1,6 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Experimental.GraphView;
 
 public class GameManager : MonoBehaviour
 {
@@ -91,6 +90,7 @@ public class GameManager : MonoBehaviour
         actualSpawnTime = ReturnRandomCooldown();
         StartCoroutine(SetNewTarget());
 
+        if(newNode == null) { return; }
         if(shouldChangePosition) 
         {
             ChangeFlag(newNode.CurrentColor, newNode.worldPosition);
@@ -111,6 +111,8 @@ public class GameManager : MonoBehaviour
         Node newNode = SetTargetColor(color);
         actualSpawnTime = ReturnRandomCooldown();
         StartCoroutine(SetNewTarget());
+
+        if(newNode == null) { return; }
 
         if (shouldChangePosition)
         {

@@ -28,12 +28,12 @@ public class MenuManager : MonoBehaviour
             if (pauseMenu.activeSelf)
             {
                 ClosePauseMenu();
-                Time.timeScale = 1;
+                
             }
             else
             {
                 OpenPauseMenu();
-                Time.timeScale = 0;
+                
             }
         }
     }
@@ -44,23 +44,32 @@ public class MenuManager : MonoBehaviour
         Time.timeScale = 0;
     }
 
+    public void GoToNextScene()
+    { 
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+    }
+
     public void ResetScene()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     public void ReturnToMenu()
-    { 
+    {
         //To do - Menu scene
+        Debug.Log("Quitting");
+        Application.Quit(); //TEMPORARY FIX FOR DEMO PURPOSES - REMOVE BEFORE FINAL RELEASE -
     }
 
     public void OpenPauseMenu()
     {
         pauseMenu.SetActive(true);
+        Time.timeScale = 0;
     }
 
     public void ClosePauseMenu()
     { 
         pauseMenu?.SetActive(false);
+        Time.timeScale = 1;
     }
 }

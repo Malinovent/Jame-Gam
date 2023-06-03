@@ -9,7 +9,7 @@ public class ColorPickerUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     [SerializeField] private float scaleFactor = 1.2f;
     [SerializeField] private float scaleSpeed = 1f;
 
-    private Vector3 originalScale;
+    private Vector3 originalScale = Vector3.one;
     private bool isActive = false;
     private bool isHovering = false;
 
@@ -23,14 +23,10 @@ public class ColorPickerUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         PaintBrush.OnColorChanged -= TryActivateColor;
     }
 
-    private void Start()
-    {
-        originalScale = transform.localScale;
-    }
-
     public void PickThisColor()
     {
         PaintBrush.ChangeBrushColor(pickerColor);
+        PaintBrush.Singleton.ChangeMaterial(pickerColor);
         isActive = true;
         if (isHovering)
         {
@@ -44,6 +40,7 @@ public class ColorPickerUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         if (isActive && newColor == pickerColor)
         {
             //If this is the same color and already active, then don't change anything
+            Debug.Log("This is already the color!");
             return;
         }    
 

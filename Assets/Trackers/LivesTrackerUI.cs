@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -26,9 +27,12 @@ public class LivesTrackerUI : MonoBehaviour
     // Update is called once per frame
     void UpdateUI()
     {
-        
+        //if (lives == null) { return; }
+
         for (int i = 0; i < 5; i++)
         {
+            if (lives[i] == null) { continue; }
+
             if (i >= LivesTracker.CurrentLives)
             {
                 lives[i].enabled = false;
