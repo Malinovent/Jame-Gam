@@ -127,6 +127,32 @@ public class NodeGrid : MonoBehaviour
         grid = null;
     }
 
+    public bool CanFit(Node startNode, int width, int height)
+    {
+        // Check if the area fits within the grid boundaries
+        if (startNode.gridX + width > this.width || startNode.gridY + height > this.height)
+        {
+            return false;
+        }
+
+        // Check if all nodes in the area are mutable
+        for (int x = 0; x < width; x++)
+        {
+            for (int y = 0; y < height; y++)
+            {
+                Node node = grid[startNode.gridY + y].row[startNode.gridX + x];
+                if (!node.isMutable)
+                {
+                    return false;
+                }
+            }
+        }
+
+        // The area fits and all nodes are mutable
+        return true;
+    }
+
+
 
     void OnDrawGizmos()
     {

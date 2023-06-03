@@ -53,3 +53,6 @@ TagManager:
   - name: Car
     uniqueID: 3198581
     locked: 0
+  - name: Obstacles
+    uniqueID: 3550139901
+    locked: 0
