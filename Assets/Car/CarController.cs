@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class CarController : MonoBehaviour
 {
+    [Header("Car properties")]
     //public AStar pathfinding;
     [SerializeField] int points = 1;
     public float speed = 5f;
@@ -16,7 +17,13 @@ public class CarController : MonoBehaviour
 
     private List<Node> path;
     private int pathIndex = 0;
-    private Vector3 lastPosition;
+    private Vector3 previousPosition;
+    private Vector3 originalScale;
+
+    [Header("Car death timer")]
+    // Additions for stop timer
+    private float stopTimer = 0f; // to keep track of time car is stopped
+    [SerializeField] private float stopThreshold = 5f; // maximum allowed stop time
 
     public static List<CarController> Cars = new List<CarController>();
 
@@ -45,6 +52,7 @@ public class CarController : MonoBehaviour
     {
         //pathfinding = AStar.Singleton;
         destination = GameManager.targetNodes[color];
+        originalScale = transform.localScale;
         //to do, set destination if game doesn't have target node
         Cars.Add(this);
 
@@ -62,7 +70,7 @@ public class CarController : MonoBehaviour
         {
             Node targetNode = path[PathIndex];
 
-            lastPosition = this.transform.position;
+            previousPosition = this.transform.position;
 
             // Move towards the target node
             transform.position = Vector3.MoveTowards(transform.position, targetNode.worldPosition, speed * Time.deltaTime);
@@ -79,9 +87,40 @@ public class CarController : MonoBehaviour
                     ArrivedAtDestination();
                 }
             }
+
+            //resets every frame, not efficient but just getting it to work
+            stopTimer = 0f;
+            transform.localScale = originalScale;
+        }
+        else
+        {
+            //Debug.Log(this.gameObject.name + " is Not moving!");
+            stopTimer += Time.deltaTime;
+            OscillateSize();
+            if (stopTimer >= stopThreshold)
+            {
+                CarCrashed();
+            }
         }
     }
     #endregion
+
+    private void OscillateSize()
+    {
+        float scale = 1f + Mathf.Sin(stopTimer * 2f * Mathf.PI) * 0.1f; // you can adjust the multiplier (0.1f here) to get the desired amplitude
+        transform.localScale = originalScale * scale;
+    }
+
+
+    private void CarCrashed()
+    {
+        // Implement what should happen when the car 'crashes' due to being stopped for too long.
+        // For example, decrease the player's lives count and destroy the car object.
+        //PlayerLivesManager.DecreaseLives();
+        LivesTracker.LoseLife();
+        Destroy(gameObject);
+    }
+
 
     private void ArrivedAtDestination()
     {
@@ -110,7 +149,7 @@ public class CarController : MonoBehaviour
     
     public void SetRotation()
     {
-        Vector3 directionOfMovement = transform.position - lastPosition;
+        Vector3 directionOfMovement = transform.position - previousPosition;
         if (directionOfMovement != Vector3.zero)  // Avoid setting rotation if there's no movement
         {
             float angle = Mathf.Atan2(directionOfMovement.y, directionOfMovement.x) * Mathf.Rad2Deg;
