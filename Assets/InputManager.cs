@@ -1,11 +1,11 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TreeEditor;
 using UnityEngine;
 
 public class InputManager : MonoBehaviour
 {
-    public static BrushStates CurrentBrushState;
     public static InputManager Singleton;
     public static Action OnStartPainting;
 
@@ -27,6 +27,7 @@ public class InputManager : MonoBehaviour
     public void Update()
     {
         SetPaintState();
+        ChangeBrushColorAlphaInput();
     }
 
     void SetPaintState()
@@ -34,26 +35,46 @@ public class InputManager : MonoBehaviour
         //Paint Mode
         if (Input.GetMouseButtonDown(0))
         {
-            CurrentBrushState = BrushStates.PAINTING;
             OnStartPainting?.Invoke();
+            BrushManager.SetBrushState(BrushStates.PAINTING);
         }
 
         //No mode
         if (Input.GetMouseButtonUp(0) || Input.GetMouseButtonUp(1))
         {
-            CurrentBrushState = BrushStates.NONE;
+            BrushManager.SetBrushState(BrushStates.NONE);
+
         }
 
         //Erase mode
         if (Input.GetMouseButtonDown(1))
         {
-            CurrentBrushState = BrushStates.ERASING;
+            BrushManager.SetBrushState(BrushStates.ERASING);
+
         }
     }
-}
-public enum BrushStates
-{
-    NONE,
-    PAINTING,
-    ERASING
+
+    public void ChangeBrushColorAlphaInput()
+    {
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            BrushManager.SetBrushColor(ColorsEnum.RED);         
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {          
+            BrushManager.SetBrushColor(ColorsEnum.GREEN);
+
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            BrushManager.SetBrushColor(ColorsEnum.BLUE);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha4))
+        {
+            BrushManager.SetBrushColor(ColorsEnum.YELLOW);
+        }
+    }
 }

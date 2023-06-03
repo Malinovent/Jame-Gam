@@ -15,18 +15,18 @@ public class ColorPickerUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
 
     private void OnEnable()
     {
-        PaintBrush.OnColorChanged += TryActivateColor;
+        BrushManager.OnColorChanged += TryActivateColor;
     }
 
     private void OnDisable()
     {
-        PaintBrush.OnColorChanged -= TryActivateColor;
+        BrushManager.OnColorChanged -= TryActivateColor;
     }
 
     public void PickThisColor()
     {
-        PaintBrush.ChangeBrushColor(pickerColor);
-        PaintBrush.Singleton.ChangeMaterial(pickerColor);
+        BrushManager.SetBrushColor(pickerColor);
+        //PaintBrush.Singleton.ChangeMaterial(pickerColor);
         isActive = true;
         if (isHovering)
         {

@@ -28,7 +28,7 @@ public class MenuManager : MonoBehaviour
             if (pauseMenu.activeSelf)
             {
                 ClosePauseMenu();
-                
+               
             }
             else
             {
@@ -64,12 +64,14 @@ public class MenuManager : MonoBehaviour
     public void OpenPauseMenu()
     {
         pauseMenu.SetActive(true);
+        Cursor.visible = true;
         Time.timeScale = 0;
     }
 
     public void ClosePauseMenu()
     { 
         pauseMenu?.SetActive(false);
+        Cursor.visible = false;
         Time.timeScale = 1;
     }
 }

@@ -18,19 +18,29 @@ public class PaintBrushMainMenu : MonoBehaviour
     private LineRenderer currentStroke;
     private Material currentPaintMaterial;
     private int lineRendererSortingOrder = 0;
+    private void OnEnable()
+    {
+        BrushManager.OnColorChanged += ChangeMaterial;
+        InputManager.OnStartPainting += PaintBrushStrokes;
+    }
+
+    private void OnDisable()
+    {
+        BrushManager.OnColorChanged -= ChangeMaterial;
+        InputManager.OnStartPainting -= PaintBrushStrokes;
+    }
+
 
     private void Start()
     {
-        ChangeBrushColor(CurrentColor);
-        InputManager.OnStartPainting += PaintBrushStrokes;
+        
         currentPaintMaterial = redMaterial;
     }
 
     void Update()
     {
-        ChangeBrushColorAlphaInput();
-
-        switch (InputManager.CurrentBrushState)
+        //Debug.Log("Updating " + InputManager);
+        switch (BrushManager.CurrentBrushState)
         {
             case BrushStates.PAINTING:
                 DoPaint();
@@ -41,38 +51,25 @@ public class PaintBrushMainMenu : MonoBehaviour
         }
     }
 
-    public void ChangeBrushColorAlphaInput()
+    public void ChangeMaterial(ColorsEnum newColor)
     {
-        if (Input.GetKeyDown(KeyCode.Alpha1))
+        switch (newColor)
         {
-            ChangeBrushColor(ColorsEnum.RED);
-            currentPaintMaterial = redMaterial;
-        }
-
-        if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            ChangeBrushColor(ColorsEnum.GREEN);
-            currentPaintMaterial = greenMaterial;
-        }
-
-        if (Input.GetKeyDown(KeyCode.Alpha3))
-        {
-            ChangeBrushColor(ColorsEnum.BLUE);
-            currentPaintMaterial = blueMaterial;
-        }
-
-        if (Input.GetKeyDown(KeyCode.Alpha4))
-        {
-            ChangeBrushColor(ColorsEnum.YELLOW);
-            currentPaintMaterial = yellowMaterial;
+            case ColorsEnum.RED:
+                currentPaintMaterial = redMaterial;
+                break;
+            case ColorsEnum.GREEN:
+                currentPaintMaterial = greenMaterial;
+                break;
+            case ColorsEnum.BLUE:
+                currentPaintMaterial = blueMaterial;
+                break;
+            case ColorsEnum.YELLOW:
+                currentPaintMaterial = yellowMaterial;
+                break;
         }
     }
 
-    public static void ChangeBrushColor(ColorsEnum newColor)
-    {
-        CurrentColor = newColor;
-        //OnColorChanged?.Invoke(CurrentColor); // If you have a static event for when color changes, uncomment this line.
-    }
 
     void DoPaint()
     {
@@ -81,8 +78,7 @@ public class PaintBrushMainMenu : MonoBehaviour
 
     void DoErase()
     {
-        // You'll need to add your own code here to handle erasing, if you want that functionality.
-        // For example, you might do a Physics.Raycast to find the closest stroke and remove it.
+        
     }
 
     public Vector3 GetMouseWorldPosition()

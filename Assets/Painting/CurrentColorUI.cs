@@ -19,12 +19,12 @@ public class CurrentColorUI : MonoBehaviour
 
     private void OnEnable()
     {
-        PaintBrush.OnColorChanged += UpdateUI;
+        BrushManager.OnColorChanged += UpdateUI;
     }
 
     private void OnDisable()
     {
-        PaintBrush.OnColorChanged -= UpdateUI;
+        BrushManager.OnColorChanged -= UpdateUI;
     }
 
     void UpdateUI(ColorsEnum newColor)

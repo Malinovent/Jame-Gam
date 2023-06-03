@@ -8,7 +8,6 @@ public class PaintBrush : MonoBehaviour
     public NodeGrid nodeGrid;
 
     public static event Action OnGridChanged;
-    public static event Action<ColorsEnum> OnColorChanged;
 
     [Header("Brush Settings")]
     public static ColorsEnum CurrentColor = ColorsEnum.RED;
@@ -37,19 +36,26 @@ public class PaintBrush : MonoBehaviour
         }
     }
 
+    private void OnEnable()
+    {
+        BrushManager.OnColorChanged += ChangeMaterial;
+    }
+
+    private void OnDisable()
+    {
+        BrushManager.OnColorChanged -= ChangeMaterial;
+    }
+
     private void Start()
     {
         InputManager.OnStartPainting += PaintBrushStrokes;
-        ChangeBrushColor(CurrentColor);
         currentPaintMaterial = redMaterial;
     }
 
     // Update is called once per frame
     void Update()
     {
-        ChangeBrushColorAlphaInput();
-
-        switch(InputManager.CurrentBrushState) 
+        switch(BrushManager.CurrentBrushState) 
         { 
             case BrushStates.PAINTING:
                 DoPaint();
@@ -60,61 +66,26 @@ public class PaintBrush : MonoBehaviour
         }
     }
 
-    public void ChangeBrushColorAlphaInput()
-    {
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            ChangeBrushColor(ColorsEnum.RED);
-            currentPaintMaterial = redMaterial;
-        }
-
-        if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            ChangeBrushColor(ColorsEnum.GREEN);
-            currentPaintMaterial = greenMaterial;
-        }
-
-        if (Input.GetKeyDown(KeyCode.Alpha3))
-        {
-            ChangeBrushColor(ColorsEnum.BLUE);
-            currentPaintMaterial = blueMaterial;
-        }
-
-        if (Input.GetKeyDown(KeyCode.Alpha4))
-        {
-            ChangeBrushColor(ColorsEnum.YELLOW);
-            currentPaintMaterial = yellowMaterial;
-        }
-    }
-
+ 
     public void ChangeMaterial(ColorsEnum newColor)
     {
         switch (newColor)
         { 
             case ColorsEnum.RED:
-                ChangeBrushColor(ColorsEnum.RED);
                 currentPaintMaterial = redMaterial;
                 break;
             case ColorsEnum.GREEN:
-                ChangeBrushColor(ColorsEnum.GREEN);
                 currentPaintMaterial = greenMaterial;
                 break;
             case ColorsEnum.BLUE:
-                ChangeBrushColor(ColorsEnum.BLUE);
                 currentPaintMaterial = blueMaterial;
                 break;
             case ColorsEnum.YELLOW:
-                ChangeBrushColor(ColorsEnum.YELLOW);
                 currentPaintMaterial = yellowMaterial;
                 break;
         }
     }
 
-    public static void ChangeBrushColor(ColorsEnum newColor)
-    {
-        CurrentColor = newColor;
-        OnColorChanged?.Invoke(CurrentColor);
-    }
 
     void DoPaint()
     {
@@ -130,7 +101,7 @@ public class PaintBrush : MonoBehaviour
 
         if (!node.isMutable)
         {
-            InputManager.CurrentBrushState = BrushStates.NONE;
+            BrushManager.SetBrushState(BrushStates.NONE);
             return;
         }
 
