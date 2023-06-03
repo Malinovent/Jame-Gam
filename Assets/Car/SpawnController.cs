@@ -9,9 +9,12 @@ public class SpawnerController : MonoBehaviour
 
     private float nextSpawnTime;
 
+    private GameObject parent;
+
     private void Start()
     {
         SetNextSpawnTime();
+        parent = new GameObject("Spawned Cars");
     }
 
     private void Update()
@@ -34,6 +37,6 @@ public class SpawnerController : MonoBehaviour
         Spawner spawner = spawners[Random.Range(0, spawners.Count)];
 
         // Tell the chosen spawner to spawn an enemy.
-        spawner.SpawnCar();
+        spawner.SpawnCar(parent.transform);
     }
 }

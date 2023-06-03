@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class Spawner : MonoBehaviour
 {
-    public GameObject enemyPrefab; // The enemy prefab to spawn.
+    public GameObject[] enemyPrefab; // The enemy prefab to spawn.
     public ColorsEnum spawnerColor;
 
-    public void SpawnCar()
+    public void SpawnCar(Transform parent)
     {
         if (!GameManager.targetNodes.ContainsKey(spawnerColor))
         {
@@ -16,9 +16,9 @@ public class Spawner : MonoBehaviour
             return;
         }
 
-        
-        Instantiate(enemyPrefab, transform.position, Quaternion.identity);
-
+        int randomCarIndex = Random.Range(0, enemyPrefab.Length);
+        GameObject spawnedCar = Instantiate(enemyPrefab[randomCarIndex], transform.position, Quaternion.identity);
+        spawnedCar.transform.parent = parent;
     }
 }
 

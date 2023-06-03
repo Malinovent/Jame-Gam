@@ -6,6 +6,7 @@ using UnityEngine;
 public class CarController : MonoBehaviour
 {
     //public AStar pathfinding;
+    [SerializeField] int points = 1;
     public float speed = 5f;
     public float rotationSpeed = 5f;
     public ColorsEnum color;
@@ -27,6 +28,8 @@ public class CarController : MonoBehaviour
             //Debug.Log(pathIndex);
         }
     }
+
+    #region Overrides
     private void OnEnable()
     {
         
@@ -52,20 +55,6 @@ public class CarController : MonoBehaviour
     
     }
 
-    // Sets the destination of the car
-    public void SetDestination(Node newDestination)
-    {
-        List<Node> newPath = AStar.Singleton.FindPath(this.transform.position, newDestination.transform.position, color);
-
-        if (newPath != null && newPath.Count > 0)
-        {
-            destination = newDestination;
-            path = newPath;
-            PathIndex = 0;
-        }
-    }
-
-    // Update is called once per frame
     void Update()
     {
         // If a valid path is available, move towards the target
@@ -84,10 +73,41 @@ public class CarController : MonoBehaviour
             if (Vector3.Distance(transform.position, targetNode.worldPosition) < 0.01f)
             {
                 PathIndex++;
+
+                if (targetNode == destination)
+                {
+                    ArrivedAtDestination();
+                }
             }
         }
     }
+    #endregion
 
+    private void ArrivedAtDestination()
+    {
+        // Add the code you want to execute when the car arrives at its destination
+        // For example, you can remove this car from the Cars list and destroy the car GameObject
+        Cars.Remove(this);
+        ScoreTracker.Score += points;
+        Destroy(gameObject);
+    }
+
+    // Sets the destination of the car
+    public void SetDestination(Node newDestination)
+    {
+        List<Node> newPath = AStar.Singleton.FindPath(this.transform.position, newDestination.transform.position, color);
+        
+
+        if (newPath != null && newPath.Count > 0)
+        {
+            destination = newDestination;
+            path = newPath;
+            PathIndex = 0;
+        }
+    }
+
+    // Update is called once per frame
+    
     public void SetRotation()
     {
         Vector3 directionOfMovement = transform.position - lastPosition;

@@ -32,6 +32,26 @@ PrefabInstance:
       propertyPath: spawnerColor
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 5556549774205980381, guid: 00dca9d3994fc6a4a9bc073ee8c20e17, type: 3}
+      propertyPath: enemyPrefab.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5556549774205980381, guid: 00dca9d3994fc6a4a9bc073ee8c20e17, type: 3}
+      propertyPath: enemyPrefab.Array.data[0]
+      value: 
+      objectReference: {fileID: 5654232950675197187, guid: eba6ffb254647c840bba84c4d74035c6, type: 3}
+    - target: {fileID: 5556549774205980381, guid: 00dca9d3994fc6a4a9bc073ee8c20e17, type: 3}
+      propertyPath: enemyPrefab.Array.data[1]
+      value: 
+      objectReference: {fileID: 8201592218019446079, guid: 112ef9720c4358e4a9e0ae8034e22ece, type: 3}
+    - target: {fileID: 5556549774205980381, guid: 00dca9d3994fc6a4a9bc073ee8c20e17, type: 3}
+      propertyPath: enemyPrefab.Array.data[2]
+      value: 
+      objectReference: {fileID: 5782921771480973229, guid: e17abaf0cf3a2eb489888f73f6e74b43, type: 3}
+    - target: {fileID: 5556549774205980381, guid: 00dca9d3994fc6a4a9bc073ee8c20e17, type: 3}
+      propertyPath: enemyPrefab.Array.data[3]
+      value: 
+      objectReference: {fileID: 5782921771480973229, guid: e17abaf0cf3a2eb489888f73f6e74b43, type: 3}
     - target: {fileID: 6676326969089674535, guid: 00dca9d3994fc6a4a9bc073ee8c20e17, type: 3}
       propertyPath: m_RootOrder
       value: 0

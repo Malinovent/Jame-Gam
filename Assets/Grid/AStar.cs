@@ -10,7 +10,7 @@ public class AStar : MonoBehaviour
 
     void Awake()
     {
-        if (Singleton != null)
+        if (Singleton == null)
         {
             Singleton = this;
         }
