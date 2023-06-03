@@ -17,7 +17,7 @@ public class PaintBrush : MonoBehaviour
     public static event Action<ColorsEnum> OnColorChanged;
 
     [Header("Brush Settings")]
-    public ColorsEnum CurrentColor = ColorsEnum.RED;
+    public static ColorsEnum CurrentColor = ColorsEnum.RED;
     [SerializeField] private GameObject strokePrefab;
 
     [Header("Paint Materials")]
@@ -79,7 +79,7 @@ public class PaintBrush : MonoBehaviour
         }
     }
 
-    public void ChangeBrushColor(ColorsEnum newColor)
+    public static void ChangeBrushColor(ColorsEnum newColor)
     {
         CurrentColor = newColor;
         OnColorChanged?.Invoke(CurrentColor);
