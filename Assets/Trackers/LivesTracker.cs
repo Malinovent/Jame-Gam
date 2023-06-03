@@ -27,7 +27,12 @@ public static class LivesTracker
     {
         currentLives -= 1;
         onLivesChanged?.Invoke();
+
+        if (currentLives <= 0)
+        {
+            MenuManager.OnGameOver?.Invoke();
+        }
     }
 
-    
+
 }
