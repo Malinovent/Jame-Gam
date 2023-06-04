@@ -30,7 +30,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4762720263309109392
 MonoBehaviour:
@@ -44,5 +44,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47436c17c19c5da4988b9c4177998dbf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audioSourcePrefab: {fileID: 0}
+  audioSourcePrefab: {fileID: 6555539933921553571, guid: b96627fe907823c44bae1cd6a9238484, type: 3}
   initialPoolSize: 10

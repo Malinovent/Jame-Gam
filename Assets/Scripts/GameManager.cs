@@ -171,6 +171,14 @@ public class GameManager : MonoBehaviour
                 break;
         }
     }
-   
-    
+
+    private void OnEnable()
+    {
+        SpawnerController.OnSpawnerAdded += SpawnFlag;
+    }
+
+    private void OnDisable()
+    {
+        SpawnerController.OnSpawnerAdded -= SpawnFlag;
+    }
 }
