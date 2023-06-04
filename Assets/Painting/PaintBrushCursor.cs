@@ -1,11 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PaintBrushCursor : MonoBehaviour
 {
     public static PaintBrushCursor Singleton;
 
+    [SerializeField] Image spriteRenderer;
+    [SerializeField] Sprite idleRed;
+    [SerializeField] Sprite idleGreen;
+    [SerializeField] Sprite idleBlue;
+    [SerializeField] Sprite idleYellow;
+    [SerializeField] Sprite paintingRed;
+    [SerializeField] Sprite paintingGreen;
+    [SerializeField] Sprite paintingBlue;
+    [SerializeField] Sprite paintingYellow;
+
+    //private RectTransform transform;
     private void Awake()
     {
         if (Singleton == null)
@@ -35,32 +47,34 @@ public class PaintBrushCursor : MonoBehaviour
     {
         Cursor.visible = false;
         DontDestroyOnLoad(gameObject);
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        Vector2 cursorPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        this.transform.position = new Vector3(cursorPos.x, cursorPos.y, -1); // Change Z value as per your requirement
+        Vector2 cursorPos = Input.mousePosition;
+        transform.position = cursorPos;
     }
 
     private void UpdateAnimation(BrushStates brushState)
     {
+        Debug.Log("Updating animation");
         if (brushState == BrushStates.PAINTING)
         {
             switch (BrushManager.CurrentBrushColor)
             {
                 case ColorsEnum.RED:
-                    //Change animation to red painting
+                    spriteRenderer.sprite = paintingRed;
                     break;
                 case ColorsEnum.BLUE:
-                    //Change animation to blue painting
+                    spriteRenderer.sprite = paintingBlue;
                     break;
                 case ColorsEnum.GREEN:
-                    //Change animation to green painting
+                    spriteRenderer.sprite = paintingGreen;
                     break;
                 case ColorsEnum.YELLOW:
-                    //Change animation to yellow painting
+                    spriteRenderer.sprite = paintingYellow;
                     break;
             }
         }
@@ -69,16 +83,16 @@ public class PaintBrushCursor : MonoBehaviour
             switch (BrushManager.CurrentBrushColor)
             {
                 case ColorsEnum.RED:
-                    //Change animation to red idle
+                    spriteRenderer.sprite = idleRed;
                     break;
                 case ColorsEnum.BLUE:
-                    //Change animation to blue idle
+                    spriteRenderer.sprite = idleBlue;
                     break;
                 case ColorsEnum.GREEN:
-                    //Change animation to green idle
+                    spriteRenderer.sprite = idleGreen;
                     break;
                 case ColorsEnum.YELLOW:
-                    //Change animation to yellow idle
+                    spriteRenderer.sprite = idleYellow;
                     break;
             }
         }
@@ -91,16 +105,16 @@ public class PaintBrushCursor : MonoBehaviour
             switch (BrushManager.CurrentBrushColor)
             {
                 case ColorsEnum.RED:
-                    //Change animation to red painting
+                    spriteRenderer.sprite = paintingRed;
                     break;
                 case ColorsEnum.BLUE:
-                    //Change animation to blue painting
+                    spriteRenderer.sprite = paintingBlue;
                     break;
                 case ColorsEnum.GREEN:
-                    //Change animation to green painting
+                    spriteRenderer.sprite = paintingGreen;
                     break;
                 case ColorsEnum.YELLOW:
-                    //Change animation to yellow painting
+                    spriteRenderer.sprite = paintingYellow;
                     break;
             }
         }
@@ -109,16 +123,16 @@ public class PaintBrushCursor : MonoBehaviour
             switch (BrushManager.CurrentBrushColor)
             {
                 case ColorsEnum.RED:
-                    //Change animation to red idle
+                    spriteRenderer.sprite = idleRed;
                     break;
                 case ColorsEnum.BLUE:
-                    //Change animation to blue idle
+                    spriteRenderer.sprite = idleBlue;
                     break;
                 case ColorsEnum.GREEN:
-                    //Change animation to green idle
+                    spriteRenderer.sprite = idleGreen;
                     break;
                 case ColorsEnum.YELLOW:
-                    //Change animation to yellow idle
+                    spriteRenderer.sprite = idleYellow;
                     break;
             }
         }

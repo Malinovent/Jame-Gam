@@ -26,7 +26,7 @@ public class ColorPickerUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     public void PickThisColor()
     {
         BrushManager.SetBrushColor(pickerColor);
-        //PaintBrush.Singleton.ChangeMaterial(pickerColor);
+
         isActive = true;
         if (isHovering)
         {
