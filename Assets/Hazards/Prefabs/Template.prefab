@@ -132,3 +132,4 @@ MonoBehaviour:
   width: 3
   height: 3
   lifetime: 60
+  plopSound: {fileID: 11400000, guid: 7bf28ee072b93d84f88f3e747ad941de, type: 2}

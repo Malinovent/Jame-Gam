@@ -11,9 +11,12 @@ public class Hazard : MonoBehaviour
     public int Width { get { return width; } }
     public int Height { get { return height; } }
 
+    [SerializeField] private AudioData plopSound;
+
     private void Start()
     {
         Invoke("DestroyHazard", lifetime);
+        AudioManager_Mali.Instance.PlayAudioDataOnce(plopSound, this.transform.position);
     }
 
     public void OccupyNodes(NodeGrid nodeGrid, Node startNode)
