@@ -36,7 +36,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         nodeGrid = FindObjectOfType<NodeGrid>();
-        Spawn();
+        SpawnFlag(ColorsEnum.RED);
     }
 
     public float ReturnRandomCooldown()
@@ -78,7 +78,7 @@ public class GameManager : MonoBehaviour
         return newTargetNode;
     }
 
-    public void Spawn()
+    public void SpawnFlag()
     {
         int randomColor = Random.Range(0, SpawnerController.currentNumOfSpawners - 1);
         bool shouldChangePosition = false;
@@ -103,7 +103,7 @@ public class GameManager : MonoBehaviour
         }    
     }
 
-    public void Spawn(ColorsEnum color)
+    public void SpawnFlag(ColorsEnum color)
     {
         bool shouldChangePosition = false;
         if (targetNodes.ContainsKey(color))
@@ -130,7 +130,7 @@ public class GameManager : MonoBehaviour
     IEnumerator SetNewTargetRoutine()
     { 
         yield return new WaitForSeconds(actualSpawnTime);
-        Spawn();
+        SpawnFlag();
     }
 
     void ChangeFlag(ColorsEnum color, Vector3 newPosition)

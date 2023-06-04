@@ -11,7 +11,7 @@ public class Spawner : MonoBehaviour
     {
         if (!GameManager.targetNodes.ContainsKey(spawnerColor))
         {
-            GameManager.Singleton.Spawn(spawnerColor);
+            GameManager.Singleton.SpawnFlag(spawnerColor);
             Debug.Log("Set Flag instead");
             return;
         }

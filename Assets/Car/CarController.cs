@@ -69,6 +69,7 @@ public class CarController : MonoBehaviour
         {
             Node targetNode = path[PathIndex];
 
+         
             previousPosition = this.transform.position;
 
             // Move towards the target node

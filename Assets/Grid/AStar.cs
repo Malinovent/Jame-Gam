@@ -56,7 +56,7 @@ public class AStar : MonoBehaviour
             foreach (Node neighbor in nodeGrid.GetNeighbours(currentNode))
             {
                 // The car can only move on nodes of the same color
-                if (neighbor.CurrentColor != color || closedSet.Contains(neighbor))
+                if (!neighbor.isWalkable|| neighbor.CurrentColor != color || closedSet.Contains(neighbor))
                 {
                     continue;
                 }

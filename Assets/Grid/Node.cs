@@ -6,7 +6,7 @@ using UnityEngine;
 public class Node : MonoBehaviour
 {
     public bool isMutable = true;
-    public bool walkable = true;
+    public bool isWalkable = true;
     public Vector3 worldPosition;
     public int gridX, gridY;
     public int gCost, hCost;
@@ -45,7 +45,7 @@ public class Node : MonoBehaviour
     {
         gridX = _gridX;
         gridY = _gridY;
-        walkable = _walkable;
+        isWalkable = _walkable;
         this.worldPosition = worldPosition;
     }
 
