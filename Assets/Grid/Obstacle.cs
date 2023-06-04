@@ -35,13 +35,11 @@ public class Obstacle : MonoBehaviour
         }
     }
 
-    public void ClearNodes()
+    private void ClearNodes()
     {
         foreach (Node node in occupiedNodes)
         {
             node.isMutable = true;
         }
-
-        occupiedNodes.Clear();
     }
 }

@@ -1,7 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
 using System;
-using System.Runtime.CompilerServices;
 
 public class SpawnerController : MonoBehaviour
 {
@@ -38,49 +37,6 @@ public class SpawnerController : MonoBehaviour
         SpawnASpawner((ColorsEnum)color);
         OnSpawnerAdded?.Invoke((ColorsEnum)color);
     }
-
-    //TO DO
-
-    public void MoveRandomSpawnerSubscriber(int amount)
-    { 
-        if(amount >= 20 && amount % 30 == 0)
-        {
-            MoveRandomSpawner();
-            Debug.Log("Moving a random spawner!");
-        }
-    }
-
-    public void MoveRandomSpawner()
-    {
-        Spawner spawnerToMove;
-
-        int randomSpawnIndex = UnityEngine.Random.Range(0, instantiatedSpawner.Count - 1);
-        spawnerToMove = instantiatedSpawner[randomSpawnIndex];
-
-        MoveSpawner(spawnerToMove);
-    }
-
-    public void MoveSpawner(Spawner spawner)
-    {
-        Node spawnNode = GetValidSpawnNode();
-        if (spawnNode)
-        {
-            spawner.transform.position = spawnNode.worldPosition;
-            Obstacle obstacleComponent = spawner.GetComponent<Obstacle>();
-            obstacleComponent.ClearNodes();
-            obstacleComponent.OccupyNodes(NodeGrid.Singleton, spawnNode);
-        }
-        else
-        {
-            Debug.LogWarning("This not find a valid node to move the spanwer");
-        }
-    }
-
-    public void IncreaseSpawnTime()
-    { 
-    
-    }
-    //
 
     private void Start()
     {
@@ -185,15 +141,5 @@ public class SpawnerController : MonoBehaviour
 
         // Return null if no node fits the criteria
         return null;
-    }
-
-    private void OnEnable()
-    {
-        ScoreTracker.onScoreChanged += MoveRandomSpawnerSubscriber;
-    }
-
-    private void OnDisable()
-    {
-        ScoreTracker.onScoreChanged -= MoveRandomSpawnerSubscriber;
     }
 }
