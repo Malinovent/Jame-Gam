@@ -71,4 +71,38 @@ public class HazardSpawner : MonoBehaviour
         // Return null if no node fits the criteria
         return null;
     }
+
+    public void SpawnHazardEventSubscription(int scoreAmount)
+    {
+        if (scoreAmount % 40 == 0)
+        {
+            SpawnMultipleHazards(10);
+        }
+    }
+
+    public void SpawnMultipleHazards(int count, float delayBetweenSpawns = 0.2f)
+    {
+        StartCoroutine(SpawnMultipleHazardsRoutine(count, delayBetweenSpawns));
+    }
+
+    private IEnumerator SpawnMultipleHazardsRoutine(int count, float delayBetweenSpawns)
+    {
+        for (int i = 0; i < count; i++)
+        {
+            SpawnHazard();
+
+            // Wait for a while before spawning the next hazard
+            yield return new WaitForSeconds(delayBetweenSpawns);
+        }
+    }
+
+    private void OnEnable()
+    {
+        ScoreTracker.onScoreChanged += SpawnHazardEventSubscription;
+    }
+
+    private void OnDisable()
+    {
+        ScoreTracker.onScoreChanged -= SpawnHazardEventSubscription;
+    }
 }
