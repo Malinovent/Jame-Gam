@@ -24,19 +24,19 @@ public class PaintBrush : MonoBehaviour
 
     private Dictionary<ColorsEnum, int> colorCounts = new Dictionary<ColorsEnum, int>()
     {
-        { ColorsEnum.RED, 150 },
-        { ColorsEnum.BLUE, 150 },
-        { ColorsEnum.GREEN, 150 },
-        { ColorsEnum.YELLOW, 150 }
+        { ColorsEnum.RED, 200 },
+        { ColorsEnum.BLUE, 200 },
+        { ColorsEnum.GREEN, 200 },
+        { ColorsEnum.YELLOW, 200 }
     };
 
 
     private Dictionary<ColorsEnum, int> maxColorNodes  = new Dictionary<ColorsEnum, int>()
     {
-        { ColorsEnum.RED, 150 },
-        { ColorsEnum.BLUE, 150 },
-        { ColorsEnum.GREEN, 150 },
-        { ColorsEnum.YELLOW, 150 }
+        { ColorsEnum.RED, 200 },
+        { ColorsEnum.BLUE, 200 },
+        { ColorsEnum.GREEN, 200 },
+        { ColorsEnum.YELLOW, 200 }
     };
 
     public static PaintBrush Singleton;
@@ -56,21 +56,25 @@ public class PaintBrush : MonoBehaviour
     private void OnEnable()
     {
         BrushManager.OnColorChanged += ChangeMaterial;
+        InputManager.OnStartPainting += PaintBrushStrokes;
     }
 
     private void OnDisable()
     {
         BrushManager.OnColorChanged -= ChangeMaterial;
+        InputManager.OnStartPainting -= PaintBrushStrokes;
     }
 
     private void Start()
     {
-        InputManager.OnStartPainting += PaintBrushStrokes;
+        BrushManager.SetBrushColor(ColorsEnum.RED);
         currentPaintMaterial = redMaterial;
         colorCounts[ColorsEnum.RED] = maxColorNodes[ColorsEnum.RED];
         colorCounts[ColorsEnum.GREEN] = maxColorNodes[ColorsEnum.GREEN];
         colorCounts[ColorsEnum.BLUE] = maxColorNodes[ColorsEnum.BLUE];
         colorCounts[ColorsEnum.YELLOW] = maxColorNodes[ColorsEnum.YELLOW];
+
+        lastMousePosition = GetMouseWorldPosition();
     }
 
     // Update is called once per frame
@@ -119,31 +123,55 @@ public class PaintBrush : MonoBehaviour
         }
     }
 
-
+    private Vector3 lastMousePosition;
     void DoPaint()
     {
-        Node node = GetNodeFromMousePosition();
-        if (node)
+        Vector3 currentPosition = GetMouseWorldPosition();
+
+        foreach (var position in GetPositionsBetween(lastMousePosition, currentPosition))
         {
-            if (node.CurrentColor != ColorsEnum.NONE)
+            Node node = GetNodeFromPosition(position);
+            if (node)
             {
-                IncreaseColorCount(node.CurrentColor); // Decrease the count for the color being painted over
-            }
-
-            // Debug.Log("Found node at grid location: " + node.gridX + ", " + node.gridY);
-            node.ChangeColor(BrushManager.CurrentBrushColor);
-
-            DecreaseColorCount(BrushManager.CurrentBrushColor);
-            OnGridChanged?.Invoke();
+                PaintNode(node);
+            }          
         }
+        AddPointToLineRenderer(GetMouseWorldPosition());
+        lastMousePosition = currentPosition;
+        
+    }
 
+    void PaintNode(Node node)
+    {
         if (!node.isMutable)
         {
             BrushManager.SetBrushState(BrushStates.NONE);
             return;
         }
 
-        AddPointToLineRenderer(GetMouseWorldPosition());
+        if (node.CurrentColor != ColorsEnum.NONE)
+        {
+            IncreaseColorCount(node.CurrentColor); // Decrease the count for the color being painted over
+        }
+
+        // Debug.Log("Found node at grid location: " + node.gridX + ", " + node.gridY);
+        node.ChangeColor(BrushManager.CurrentBrushColor);
+
+        DecreaseColorCount(BrushManager.CurrentBrushColor);
+        OnGridChanged?.Invoke();
+    }
+
+    Node GetNodeFromPosition(Vector3 position)
+    {
+        return nodeGrid.NodeFromWorldPoint(position);
+    }
+
+    IEnumerable<Vector3> GetPositionsBetween(Vector3 start, Vector3 end)
+    {
+        for (float t = 0; t < 1; t += 0.01f)
+        {
+            yield return Vector3.Lerp(start, end, t);
+        }
     }
 
     void DoErase()
@@ -184,6 +212,38 @@ public class PaintBrush : MonoBehaviour
         return node;
     }
 
+    public void PaintNodes()
+    {
+        Vector3 worldPos = GetMouseWorldPosition();
+
+        //Debug.Log("Mouse pos is " + mousePos + " and world pos is " + worldPos);
+        List<Node> nodes;
+        nodes = nodeGrid.NodesFromWorldPoint(worldPos, 0.1f);
+
+        foreach(Node node in nodes) 
+        {
+            if (!node.isMutable)
+            {
+                BrushManager.SetBrushState(BrushStates.NONE);
+                continue;
+            }
+
+            if (node)
+            {
+                if (node.CurrentColor != ColorsEnum.NONE)
+                {
+                    IncreaseColorCount(node.CurrentColor); // Decrease the count for the color being painted over
+                }
+
+                // Debug.Log("Found node at grid location: " + node.gridX + ", " + node.gridY);
+                node.ChangeColor(BrushManager.CurrentBrushColor);
+
+                DecreaseColorCount(BrushManager.CurrentBrushColor);
+                OnGridChanged?.Invoke();
+            }        
+        }
+    }
+
     private int lineRendererSortingOrder = 0;
 
     private void PaintBrushStrokes()
@@ -194,6 +254,8 @@ public class PaintBrush : MonoBehaviour
         lineRendererSortingOrder += 1;
         currentStroke.sortingOrder = lineRendererSortingOrder;
         currentStroke.positionCount = 0;
+        lastMousePosition = GetMouseWorldPosition();
+        AddPointToLineRenderer(GetMouseWorldPosition());
     }
 
     void AddPointToLineRenderer(Vector3 point)
