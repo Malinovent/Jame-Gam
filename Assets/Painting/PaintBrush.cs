@@ -91,7 +91,7 @@ public class PaintBrush : MonoBehaviour
                 }
                 break;
             case BrushStates.ERASING:
-                DoErase();
+                //DoErase();
                 break;
         }
     }

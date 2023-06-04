@@ -3032,6 +3032,7 @@ GameObject:
   - component: {fileID: 2110591092}
   - component: {fileID: 2110591094}
   - component: {fileID: 2110591093}
+  - component: {fileID: 2110591095}
   m_Layer: 5
   m_Name: Dude
   m_TagString: Untagged
@@ -3079,7 +3080,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 0a060a5b52e2fe14eaab70f9f1e08306, type: 3}
+  m_Sprite: {fileID: -1129844985, guid: ee9b4adf8cd9a75479a807b413417cde, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3097,6 +3098,27 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2110591091}
   m_CullTransparentMesh: 1
+--- !u!95 &2110591095
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2110591091}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: c994d780782056048a8a69db53fc3ec2, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &2116777969
 GameObject:
   m_ObjectHideFlags: 0

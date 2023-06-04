@@ -8,6 +8,12 @@ public class InputManager : MonoBehaviour
     public static InputManager Singleton;
     public static Action OnStartPainting;
 
+    public static bool redUnlocked = true;
+    public static bool blueUnlocked = false;
+    public static bool greenUnlocked = false;
+    public static bool yellowUnlocked = false;
+
+
     //Singleton
     private void Awake()
     {
@@ -57,23 +63,35 @@ public class InputManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            BrushManager.SetBrushColor(ColorsEnum.RED);         
+            if (redUnlocked)
+            {
+                BrushManager.SetBrushColor(ColorsEnum.RED);
+            }
         }
 
         if (Input.GetKeyDown(KeyCode.Alpha2))
-        {          
-            BrushManager.SetBrushColor(ColorsEnum.GREEN);
+        {
+            if (greenUnlocked)
+            {
+                BrushManager.SetBrushColor(ColorsEnum.GREEN);
+            }
 
         }
 
         if (Input.GetKeyDown(KeyCode.Alpha3))
         {
-            BrushManager.SetBrushColor(ColorsEnum.BLUE);
+            if (blueUnlocked)
+            {
+                BrushManager.SetBrushColor(ColorsEnum.BLUE);
+            }
         }
 
         if (Input.GetKeyDown(KeyCode.Alpha4))
         {
-            BrushManager.SetBrushColor(ColorsEnum.YELLOW);
+            if (yellowUnlocked)
+            {
+                BrushManager.SetBrushColor(ColorsEnum.YELLOW);
+            }
         }
     }
 }

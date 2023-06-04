@@ -36,6 +36,19 @@ public class SpawnerController : MonoBehaviour
         //Debug.Log("Passed in colors int : " + color + " upcasted enum: " + (ColorsEnum)color);
         SpawnASpawner((ColorsEnum)color);
         OnSpawnerAdded?.Invoke((ColorsEnum)color);
+
+        switch (color)
+        {
+            case 2:
+                InputManager.greenUnlocked = true;
+                break;
+            case 3:
+                InputManager.blueUnlocked = true;
+                break;
+            case 4:
+                InputManager.yellowUnlocked = true;
+                break;
+        }
     }
 
 
