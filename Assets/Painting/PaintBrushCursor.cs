@@ -16,6 +16,7 @@ public class PaintBrushCursor : MonoBehaviour
     [SerializeField] Sprite paintingGreen;
     [SerializeField] Sprite paintingBlue;
     [SerializeField] Sprite paintingYellow;
+    [SerializeField] Animator animator;
 
     //private RectTransform transform;
     private void Awake()
@@ -62,24 +63,30 @@ public class PaintBrushCursor : MonoBehaviour
         //Debug.Log("Updating animation");
         if (brushState == BrushStates.PAINTING)
         {
+            if (animator) animator.gameObject.SetActive(true);
             switch (BrushManager.CurrentBrushColor)
             {
                 case ColorsEnum.RED:
                     spriteRenderer.sprite = paintingRed;
+                    if(animator) animator.Play("Animation_RedSplash");
                     break;
                 case ColorsEnum.BLUE:
                     spriteRenderer.sprite = paintingBlue;
+                    if (animator) animator.Play("Animation_BlueSplash");
                     break;
                 case ColorsEnum.GREEN:
                     spriteRenderer.sprite = paintingGreen;
+                    if (animator) animator.Play("Animation_GreenSplash");
                     break;
                 case ColorsEnum.YELLOW:
                     spriteRenderer.sprite = paintingYellow;
+                    if (animator) animator.Play("Animation_YellowSplash");
                     break;
             }
         }
         else
         {
+            if (animator) animator.gameObject.SetActive(false);
             switch (BrushManager.CurrentBrushColor)
             {
                 case ColorsEnum.RED:
