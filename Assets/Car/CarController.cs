@@ -24,6 +24,10 @@ public class CarController : MonoBehaviour
     private float stopTimer = 0f; // to keep track of time car is stopped
     [SerializeField] private float stopThreshold = 5f; // maximum allowed stop time
 
+    [Header("Car Sound Effects")]
+    [SerializeField] private AudioData carSuccess;
+    [SerializeField] private AudioData careFailureStop;
+
     public static List<CarController> Cars = new List<CarController>();
 
     public int PathIndex { 
@@ -124,6 +128,7 @@ public class CarController : MonoBehaviour
         // For example, decrease the player's lives count and destroy the car object.
         //PlayerLivesManager.DecreaseLives();
         LivesTracker.LoseLife();
+        AudioManager_Mali.Instance.PlayAudioDataOnce(careFailureStop, this.transform.position);
         Cars.Remove(this);
         Destroy(gameObject);
     }
@@ -135,6 +140,7 @@ public class CarController : MonoBehaviour
         // For example, you can remove this car from the Cars list and destroy the car GameObject
         Cars.Remove(this);
         ScoreTracker.Score += points;
+        AudioManager_Mali.Instance.PlayAudioDataOnce(carSuccess, this.transform.position);
         Destroy(gameObject);
     }
 

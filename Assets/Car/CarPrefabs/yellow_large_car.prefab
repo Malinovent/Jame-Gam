@@ -132,6 +132,8 @@ MonoBehaviour:
   color: 4
   destination: {fileID: 0}
   stopThreshold: 5
+  carSuccess: {fileID: 11400000, guid: be442785220925f4f8df6216980db9f9, type: 2}
+  careFailureStop: {fileID: 11400000, guid: 6b340ce95efb9394b91786054e64bd2c, type: 2}
 --- !u!1001 &1183356233644271068
 PrefabInstance:
   m_ObjectHideFlags: 0

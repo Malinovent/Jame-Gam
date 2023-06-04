@@ -22,7 +22,7 @@ public static class BrushManager
     public static void SetBrushColor(ColorsEnum newBrushColor)
     {
         CurrentBrushColor = newBrushColor;
-        //Debug.Log("Switching to brush color: " + CurrentBrushColor.ToString());
+        //Debug.Log("Switching to brush color: " + CurrentBrushColor.ToString());       
         OnColorChanged?.Invoke(newBrushColor);
     }
 }

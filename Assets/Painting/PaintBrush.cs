@@ -41,6 +41,8 @@ public class PaintBrush : MonoBehaviour
 
     public static PaintBrush Singleton;
 
+    [SerializeField] private AudioData switchColorSound;
+
     private void Awake()
     {
         if (Singleton == null)
@@ -121,6 +123,8 @@ public class PaintBrush : MonoBehaviour
                 currentPaintMaterial = yellowMaterial;
                 break;
         }
+
+        AudioManager_Mali.Instance.PlayAudioDataOnce(switchColorSound, this.transform.position);
     }
 
     private Vector3 lastMousePosition;
