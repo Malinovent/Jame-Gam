@@ -1,6 +1,6 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
+using UnityEngine.UI;
+using UnityEngine.Audio; 
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -8,8 +8,14 @@ public class MenuManager : MonoBehaviour
 {
     [SerializeField] GameObject pauseMenu;
     [SerializeField] GameObject gameOverMenu;
+    [SerializeField] GameObject UIAsset; 
+    [SerializeField] GameObject optionsMenu; 
 
     public static Action OnGameOver;
+
+    public AudioMixer audioMixer;
+    public Toggle fullScreen;
+    public Slider volumeSlider;
 
     private void OnEnable()
     {
@@ -28,7 +34,12 @@ public class MenuManager : MonoBehaviour
             if (pauseMenu.activeSelf)
             {
                 ClosePauseMenu();
-               
+                
+            }
+            else if (optionsMenu.activeSelf)
+            {
+                optionsMenu.SetActive(false);
+                OpenPauseMenu(); 
             }
             else
             {
@@ -36,6 +47,21 @@ public class MenuManager : MonoBehaviour
                 
             }
         }
+    }
+
+    private void Start()
+    {
+        if (Screen.fullScreen == true)
+        {
+            fullScreen.isOn = true;
+        }
+        else
+        {
+            fullScreen.isOn = false;
+        }
+
+        audioMixer.GetFloat("volume", out float value);
+        volumeSlider.value = value;
     }
 
     public void GameOver()
@@ -64,14 +90,24 @@ public class MenuManager : MonoBehaviour
     public void OpenPauseMenu()
     {
         pauseMenu.SetActive(true);
-        Cursor.visible = true;
+        UIAsset.SetActive(false); 
         Time.timeScale = 0;
     }
 
     public void ClosePauseMenu()
     { 
         pauseMenu?.SetActive(false);
-        Cursor.visible = false;
+        UIAsset.SetActive(true); 
         Time.timeScale = 1;
+    }
+
+    public void SetVolume(float volume)
+    {
+        audioMixer.SetFloat("volume", volume);
+    }
+
+    public void SetFullScreen(bool isFull)
+    {
+        Screen.fullScreen = isFull;
     }
 }
