@@ -7,6 +7,7 @@ public class Node : MonoBehaviour
 {
     public bool isMutable = true;
     public bool isWalkable = true;
+    public bool isFlagged = false;
     public Vector3 worldPosition;
     public int gridX, gridY;
     public int gCost, hCost;

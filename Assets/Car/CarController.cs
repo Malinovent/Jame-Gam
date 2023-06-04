@@ -50,7 +50,7 @@ public class CarController : MonoBehaviour
     private void Start()
     {
         //pathfinding = AStar.Singleton;
-        destination = GameManager.targetNodes[color];
+        destination = GameManager.flagNodes[color];
         originalScale = transform.localScale;
         //to do, set destination if game doesn't have target node
         Cars.Add(this);

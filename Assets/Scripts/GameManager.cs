@@ -15,7 +15,7 @@ public class GameManager : MonoBehaviour
     private NodeGrid nodeGrid;
 
     // Store the current target nodes
-    public static Dictionary<ColorsEnum, Node> targetNodes = new Dictionary<ColorsEnum, Node>();
+    public static Dictionary<ColorsEnum, Node> flagNodes = new Dictionary<ColorsEnum, Node>();
 
     private GameObject[] flags = new GameObject[4];
 
@@ -49,13 +49,13 @@ public class GameManager : MonoBehaviour
         //TO DO: Set a while loop until a new color popsup
 
         // If there is already a target node of this color
-        if (targetNodes.ContainsKey(color))
+        if (flagNodes.ContainsKey(color))
         {
             // Remove the target node, and make it mutable again
-            targetNodes[color].isMutable = true;
+            flagNodes[color].isMutable = true;
 
             // Remove the target node from the dictionary
-            targetNodes.Remove(color);
+            flagNodes.Remove(color);
         }
 
         // Get a random mutable node from the grid
@@ -73,7 +73,7 @@ public class GameManager : MonoBehaviour
         newTargetNode.CurrentColor = color;
 
         // Add the new target node to the dictionary
-        targetNodes.Add(color, newTargetNode);
+        flagNodes.Add(color, newTargetNode);
 
         return newTargetNode;
     }
@@ -83,7 +83,7 @@ public class GameManager : MonoBehaviour
         int randomColor = Random.Range(0, SpawnerController.Singleton.instantiatedSpawner.Count - 1);
         bool shouldChangePosition = false;
 
-        if(targetNodes.ContainsKey((ColorsEnum)randomColor))
+        if(flagNodes.ContainsKey((ColorsEnum)randomColor))
         {
             shouldChangePosition = true;
         }
@@ -106,7 +106,7 @@ public class GameManager : MonoBehaviour
     public void SpawnFlag(ColorsEnum color)
     {
         bool shouldChangePosition = false;
-        if (targetNodes.ContainsKey(color))
+        if (flagNodes.ContainsKey(color))
         {
             shouldChangePosition = true;
         }

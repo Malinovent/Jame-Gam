@@ -9,7 +9,7 @@ public class Spawner : MonoBehaviour
 
     public void SpawnCar(Transform parent)
     {
-        if (!GameManager.targetNodes.ContainsKey(spawnerColor))
+        if (!GameManager.flagNodes.ContainsKey(spawnerColor))
         {
             GameManager.Singleton.SpawnFlag(spawnerColor);
             Debug.Log("Set Flag instead");

@@ -163,19 +163,25 @@ public class NodeGrid : MonoBehaviour
 
     public bool CanFit(Node startNode, int width, int height)
     {
+        // Expand the area by one in each direction
+        int startX = Math.Max(startNode.gridX - 1, 0);
+        int startY = Math.Max(startNode.gridY - 1, 0);
+        int endX = Math.Min(startNode.gridX + width, this.width - 1);
+        int endY = Math.Min(startNode.gridY + height, this.height - 1);
+
         // Check if the area fits within the grid boundaries
         if (startNode.gridX + width > this.width || startNode.gridY + height > this.height)
         {
             return false;
         }
 
-        // Check if all nodes in the area are mutable
-        for (int x = 0; x < width; x++)
+        // Check if all nodes in the expanded area are mutable or a flag
+        for (int x = startX; x <= endX; x++)
         {
-            for (int y = 0; y < height; y++)
+            for (int y = startY; y <= endY; y++)
             {
-                Node node = grid[startNode.gridY + y].row[startNode.gridX + x];
-                if (!node.isMutable)
+                Node node = grid[y].row[x];
+                if (!node.isMutable || IsFlagNode(node))
                 {
                     return false;
                 }
@@ -186,6 +192,13 @@ public class NodeGrid : MonoBehaviour
         return true;
     }
 
+    // Add a new method to check if a node is a flag
+    public bool IsFlagNode(Node node)
+    {
+        // Check if the node is in the list of flag nodes
+        Debug.Log("This node is a flag! ");
+        return GameManager.flagNodes.ContainsValue(node);
+    }
 
 
     void OnDrawGizmos()
