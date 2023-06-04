@@ -35,7 +35,7 @@ RectTransform:
   - {fileID: 1362515373513787493}
   - {fileID: 8815706049535756107}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -563,7 +563,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1f557e30321a2e4ab8b16fcfa2fad8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  paintColor: 3
+  paintColor: 1
 --- !u!1 &2292852230755219992
 GameObject:
   m_ObjectHideFlags: 0
@@ -2399,7 +2399,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1f557e30321a2e4ab8b16fcfa2fad8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  paintColor: 2
+  paintColor: 1
 --- !u!1 &8423698248852040580
 GameObject:
   m_ObjectHideFlags: 0
@@ -2753,4 +2753,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1f557e30321a2e4ab8b16fcfa2fad8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  paintColor: 4
+  paintColor: 1

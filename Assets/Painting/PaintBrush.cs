@@ -24,19 +24,19 @@ public class PaintBrush : MonoBehaviour
 
     private Dictionary<ColorsEnum, int> colorCounts = new Dictionary<ColorsEnum, int>()
     {
-        { ColorsEnum.RED, 300 },
-        { ColorsEnum.BLUE, 300 },
-        { ColorsEnum.GREEN, 300 },
-        { ColorsEnum.YELLOW, 300 }
+        { ColorsEnum.RED, 200 },
+        { ColorsEnum.BLUE, 200 },
+        { ColorsEnum.GREEN, 200 },
+        { ColorsEnum.YELLOW, 200 }
     };
 
 
     public Dictionary<ColorsEnum, int> maxColorNodes  = new Dictionary<ColorsEnum, int>()
     {
-        { ColorsEnum.RED, 300 },
-        { ColorsEnum.BLUE, 300 },
-        { ColorsEnum.GREEN, 300 },
-        { ColorsEnum.YELLOW, 300 }
+        { ColorsEnum.RED, 200 },
+        { ColorsEnum.BLUE, 200 },
+        { ColorsEnum.GREEN, 200 },
+        { ColorsEnum.YELLOW, 200 }
     };
 
     public static PaintBrush Singleton;
