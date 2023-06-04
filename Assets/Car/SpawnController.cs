@@ -38,6 +38,52 @@ public class SpawnerController : MonoBehaviour
         OnSpawnerAdded?.Invoke((ColorsEnum)color);
     }
 
+
+    public void MoveRandomSpawnerSubscriber(int amount)
+    { 
+        if(amount >= 20 && amount % 30 == 0)
+        {
+            MoveRandomSpawner();
+            Debug.Log("Moving a random spawner!");
+        }
+    }
+
+    public void MoveRandomSpawner()
+    {
+        Spawner spawnerToMove;
+
+        int randomSpawnIndex = UnityEngine.Random.Range(0, instantiatedSpawner.Count - 1);
+        spawnerToMove = instantiatedSpawner[randomSpawnIndex];
+
+        MoveSpawner(spawnerToMove);
+    }
+
+    public void MoveSpawner(Spawner spawner)
+    {
+        Node spawnNode = GetValidSpawnNode();
+        if (spawnNode)
+        {
+            spawner.transform.position = spawnNode.worldPosition;
+            Obstacle obstacleComponent = spawner.GetComponent<Obstacle>();
+            obstacleComponent.ClearNodes();
+            obstacleComponent.OccupyNodes(NodeGrid.Singleton, spawnNode);
+        }
+        else
+        {
+            Debug.LogWarning("This not find a valid node to move the spanwer");
+        }
+    }
+
+    public void DecreaseSpawnTime(int scoreAmount)
+    {
+        if (scoreAmount % 20 == 0)
+        {
+            minSpawnInterval -= minSpawnInterval * 0.05f;
+            maxSpawnInterval -= maxSpawnInterval * 0.05f;
+        }
+    }
+    
+
     private void Start()
     {
         SpawnASpawner(ColorsEnum.RED);
@@ -142,4 +188,18 @@ public class SpawnerController : MonoBehaviour
         // Return null if no node fits the criteria
         return null;
     }
+
+
+    private void OnEnable()
+    {
+        ScoreTracker.onScoreChanged += MoveRandomSpawnerSubscriber;
+        ScoreTracker.onScoreChanged += DecreaseSpawnTime;
+    }
+
+    private void OnDisable()
+    {
+        ScoreTracker.onScoreChanged -= MoveRandomSpawnerSubscriber;
+        ScoreTracker.onScoreChanged -= DecreaseSpawnTime;
+    }
+
 }

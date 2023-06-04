@@ -35,7 +35,7 @@ public class Obstacle : MonoBehaviour
         }
     }
 
-    private void ClearNodes()
+    public void ClearNodes()
     {
         foreach (Node node in occupiedNodes)
         {
