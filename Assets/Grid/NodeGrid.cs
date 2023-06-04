@@ -196,7 +196,7 @@ public class NodeGrid : MonoBehaviour
     public bool IsFlagNode(Node node)
     {
         // Check if the node is in the list of flag nodes
-        Debug.Log("This node is a flag! ");
+        //Debug.Log("This node is a flag! ");
         return GameManager.flagNodes.ContainsValue(node);
     }
 

@@ -69,7 +69,13 @@ public class CarController : MonoBehaviour
         {
             Node targetNode = path[PathIndex];
 
-         
+            CarController carInFront = CarInFront(15);
+            if (carInFront != null)
+            {
+                // Car in front, stop moving
+                return;
+            }
+
             previousPosition = this.transform.position;
 
             // Move towards the target node
@@ -118,6 +124,7 @@ public class CarController : MonoBehaviour
         // For example, decrease the player's lives count and destroy the car object.
         //PlayerLivesManager.DecreaseLives();
         LivesTracker.LoseLife();
+        Cars.Remove(this);
         Destroy(gameObject);
     }
 
@@ -177,4 +184,35 @@ public class CarController : MonoBehaviour
 
         return true;
     }
+
+    public CarController CarInFront(float checkDistance)
+    {
+        for (int i = 1; i <= checkDistance; i++)
+        {
+            int checkIndex = PathIndex + i;
+
+            if (checkIndex >= path.Count)
+            {
+                // We've reached the end of the path
+                break;
+            }
+
+            Node checkNode = path[checkIndex];
+
+            foreach (CarController car in Cars)
+            {
+
+                if (car != this && car.transform.position == checkNode.worldPosition)
+                {
+                    // There's a car in front on the path
+                    Debug.Log("There is a car!");
+                    return car;
+                }
+            }
+        }
+
+        // No car in front on the path
+        return null;
+    }
+
 }

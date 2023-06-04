@@ -36,7 +36,7 @@ public class ColorPickerUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
 
     public void TryEnableThisObject(ColorsEnum spawnerColor)
     {
-        Debug.Log("Try Enabling the color picker for color: " + spawnerColor.ToString());
+        //Debug.Log("Try Enabling the color picker for color: " + spawnerColor.ToString());
         if (spawnerColor == pickerColor)
         {
             this.gameObject.SetActive(true);

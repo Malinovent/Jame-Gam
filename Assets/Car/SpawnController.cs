@@ -80,7 +80,7 @@ public class SpawnerController : MonoBehaviour
         {
             Spawner spawnerInstance = Instantiate(chosenSpawner, spawnNode.worldPosition, Quaternion.identity);
             spawnerInstance.transform.parent = this.transform;
-            Debug.Log("Spawning a new spawner!");
+            //Debug.Log("Spawning a new spawner!");
             instantiatedSpawner.Add(spawnerInstance);
             
             //Spawner.OccupyNodes(nodeGrid, spawnNode);

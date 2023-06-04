@@ -1,0 +1,57 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &4107079522028621565
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2904633044269794034}
+  - component: {fileID: 4052583337688853846}
+  m_Layer: 0
+  m_Name: HazardController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2904633044269794034
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4107079522028621565}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 9.485481, y: 4.5771537, z: 0.98006386}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4052583337688853846
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4107079522028621565}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5985fa5714c38b49b38635e11c27c82, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hazards:
+  - {fileID: 3227019931668007143, guid: 795bb89841b1c274e93612dc244ee5b5, type: 3}
+  - {fileID: 3227019931668007143, guid: 16023b76432b3c24e945fd36bd1e5927, type: 3}
+  - {fileID: 3227019931668007143, guid: 5d69a5c4f2ef6344289bb8704dd21988, type: 3}
+  - {fileID: 3227019931668007143, guid: 12e7a0ed79053c44e99e0f766c0c90f0, type: 3}
+  - {fileID: 3227019931668007143, guid: 9c66950817a74074c880b7fe86678ab1, type: 3}
+  - {fileID: 3227019931668007143, guid: 92d39917ecd27dc499f25250dd29cbda, type: 3}
+  - {fileID: 3227019931668007143, guid: c692e5fcb66f5c940a21d3e1fa65a3be, type: 3}
+  nodeGrid: {fileID: 0}
+  minSpawnTime: 1
+  maxSpawnTime: 5
