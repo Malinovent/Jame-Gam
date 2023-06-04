@@ -51,4 +51,10 @@ public class AudioManager : MonoBehaviour
         yield return new WaitForSeconds(8f);
         sourceB.Play(); 
     }
+
+    public void GameOver()
+    {
+        sourceB.Stop();
+        Play("GameOver");
+    }
 }

@@ -27,7 +27,6 @@ public class MenuManager : MonoBehaviour
     {
         OnGameOver -= GameOver;
     }
-
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
@@ -62,6 +61,8 @@ public class MenuManager : MonoBehaviour
             fullScreen.isOn = false;
         }
 
+        UIAsset.SetActive(true); 
+
         audioMixer.GetFloat("volume", out float value);
         volumeSlider.value = value;
     }
@@ -69,6 +70,8 @@ public class MenuManager : MonoBehaviour
     public void GameOver()
     {
         gameOverMenu.SetActive(true);
+        UIAsset.SetActive(false);
+        AudioManager.GameOver(); 
         Time.timeScale = 0;
     }
 
