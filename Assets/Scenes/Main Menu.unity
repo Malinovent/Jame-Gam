@@ -1587,14 +1587,14 @@ MonoBehaviour:
   sounds:
   - name: ButtonClick
     clip: {fileID: 8300000, guid: 0cbc3744d41f5be4aa61fbb6ee36c3af, type: 3}
-    audioMixerGroup: {fileID: 0}
+    audioMixerGroup: {fileID: 24300002, guid: b78441baa5398244e8c86aa785a8abfa, type: 2}
     volume: 1
     pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: MainTheme
     clip: {fileID: 8300000, guid: 77d05e5502c1e9347beb109f708d970c, type: 3}
-    audioMixerGroup: {fileID: 0}
+    audioMixerGroup: {fileID: 24300002, guid: b78441baa5398244e8c86aa785a8abfa, type: 2}
     volume: 1
     pitch: 1
     loop: 1
@@ -1626,7 +1626,7 @@ AudioSource:
   m_GameObject: {fileID: 1181226456}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 24300002, guid: b78441baa5398244e8c86aa785a8abfa, type: 2}
   m_audioClip: {fileID: 8300000, guid: 868d09e6e4630ae49a297befa474dea5, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
@@ -1722,7 +1722,7 @@ AudioSource:
   m_GameObject: {fileID: 1181226456}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 24300002, guid: b78441baa5398244e8c86aa785a8abfa, type: 2}
   m_audioClip: {fileID: 8300000, guid: 7a7a060b90418b74488c437c1cde2616, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1

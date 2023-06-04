@@ -16,5 +16,5 @@ MonoBehaviour:
   volume: 0.25
   loop: 0
   spatialBlend: 0
-  audioMixerGroup: {fileID: 0}
+  audioMixerGroup: {fileID: 24300002, guid: b78441baa5398244e8c86aa785a8abfa, type: 2}
   length: 0
