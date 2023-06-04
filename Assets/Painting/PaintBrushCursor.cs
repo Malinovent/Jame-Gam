@@ -46,7 +46,7 @@ public class PaintBrushCursor : MonoBehaviour
     void Start()
     {
         Cursor.visible = false;
-        DontDestroyOnLoad(gameObject);
+
         
     }
 

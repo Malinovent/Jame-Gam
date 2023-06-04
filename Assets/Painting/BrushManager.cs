@@ -11,17 +11,18 @@ public static class BrushManager
     public static BrushStates CurrentBrushState { get; private set; }
     public static ColorsEnum CurrentBrushColor { get; private set; }
 
+
     public static void SetBrushState(BrushStates newBrushState)
     {
         CurrentBrushState = newBrushState;
-        Debug.Log("Switching to brush state: " + CurrentBrushState.ToString());
+        //Debug.Log("Switching to brush state: " + CurrentBrushState.ToString());
         OnBrushStateChanged?.Invoke(newBrushState);
     }
 
     public static void SetBrushColor(ColorsEnum newBrushColor)
     {
         CurrentBrushColor = newBrushColor;
-        Debug.Log("Switching to brush color: " + CurrentBrushColor.ToString());
+        //Debug.Log("Switching to brush color: " + CurrentBrushColor.ToString());
         OnColorChanged?.Invoke(newBrushColor);
     }
 }

@@ -1,16 +1,16 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
-
-
 
 public class PaintBrush : MonoBehaviour
 { 
     public NodeGrid nodeGrid;
 
     public static event Action OnGridChanged;
+    public static event Action<ColorsEnum, int> OnPaintChanged;
+
 
     [Header("Brush Settings")]
-    public static ColorsEnum CurrentColor = ColorsEnum.RED;
     [SerializeField] private GameObject strokePrefab;
 
     [Header("Paint Materials")]
@@ -21,6 +21,23 @@ public class PaintBrush : MonoBehaviour
 
     private LineRenderer currentStroke;
     private Material currentPaintMaterial;
+
+    private Dictionary<ColorsEnum, int> colorCounts = new Dictionary<ColorsEnum, int>()
+    {
+        { ColorsEnum.RED, 150 },
+        { ColorsEnum.BLUE, 150 },
+        { ColorsEnum.GREEN, 150 },
+        { ColorsEnum.YELLOW, 150 }
+    };
+
+
+    private Dictionary<ColorsEnum, int> maxColorNodes  = new Dictionary<ColorsEnum, int>()
+    {
+        { ColorsEnum.RED, 150 },
+        { ColorsEnum.BLUE, 150 },
+        { ColorsEnum.GREEN, 150 },
+        { ColorsEnum.YELLOW, 150 }
+    };
 
     public static PaintBrush Singleton;
 
@@ -50,6 +67,10 @@ public class PaintBrush : MonoBehaviour
     {
         InputManager.OnStartPainting += PaintBrushStrokes;
         currentPaintMaterial = redMaterial;
+        colorCounts[ColorsEnum.RED] = maxColorNodes[ColorsEnum.RED];
+        colorCounts[ColorsEnum.GREEN] = maxColorNodes[ColorsEnum.GREEN];
+        colorCounts[ColorsEnum.BLUE] = maxColorNodes[ColorsEnum.BLUE];
+        colorCounts[ColorsEnum.YELLOW] = maxColorNodes[ColorsEnum.YELLOW];
     }
 
     // Update is called once per frame
@@ -58,7 +79,10 @@ public class PaintBrush : MonoBehaviour
         switch(BrushManager.CurrentBrushState) 
         { 
             case BrushStates.PAINTING:
-                DoPaint();
+                if (CanPaint())
+                {
+                    DoPaint();
+                }
                 break;
             case BrushStates.ERASING:
                 DoErase();
@@ -66,13 +90,22 @@ public class PaintBrush : MonoBehaviour
         }
     }
 
- 
+    private bool CanPaint()
+    {
+        if (!colorCounts.ContainsKey(BrushManager.CurrentBrushColor))
+        {
+            colorCounts[BrushManager.CurrentBrushColor] = maxColorNodes[BrushManager.CurrentBrushColor];
+        }
+
+        return colorCounts[BrushManager.CurrentBrushColor] > 0;
+    }
+
     public void ChangeMaterial(ColorsEnum newColor)
     {
         switch (newColor)
         { 
             case ColorsEnum.RED:
-                currentPaintMaterial = redMaterial;
+                currentPaintMaterial = redMaterial;             
                 break;
             case ColorsEnum.GREEN:
                 currentPaintMaterial = greenMaterial;
@@ -92,10 +125,15 @@ public class PaintBrush : MonoBehaviour
         Node node = GetNodeFromMousePosition();
         if (node)
         {
+            if (node.CurrentColor != ColorsEnum.NONE)
+            {
+                IncreaseColorCount(node.CurrentColor); // Decrease the count for the color being painted over
+            }
 
             // Debug.Log("Found node at grid location: " + node.gridX + ", " + node.gridY);
-            node.ChangeColor(CurrentColor);   
-        
+            node.ChangeColor(BrushManager.CurrentBrushColor);
+
+            DecreaseColorCount(BrushManager.CurrentBrushColor);
             OnGridChanged?.Invoke();
         }
 
@@ -113,6 +151,11 @@ public class PaintBrush : MonoBehaviour
         Node node = GetNodeFromMousePosition();
         if (node)
         {
+            if (node.CurrentColor != ColorsEnum.NONE)
+            {
+                IncreaseColorCount(node.CurrentColor); // Decrease the count for the color being erased
+            }
+
             // Debug.Log("Found node at grid location: " + node.gridX + ", " + node.gridY);
             node.CurrentColor = ColorsEnum.NONE;
             node.UpdateSpriteColor();
@@ -157,5 +200,35 @@ public class PaintBrush : MonoBehaviour
     {
         currentStroke.positionCount++;
         currentStroke.SetPosition(currentStroke.positionCount - 1, point);
+    }
+
+    public void IncreaseColorCount(ColorsEnum color)
+    {
+        if (colorCounts[color] < maxColorNodes[color])
+        {
+            colorCounts[color]++;
+            OnPaintChanged(color, colorCounts[color]);
+
+            if (colorCounts[color] > maxColorNodes[color]) { colorCounts[color] = maxColorNodes[color]; }
+        }
+        else
+        {
+            // you've hit the limit for this color
+            // handle this case however you like (e.g. play a sound, show a message, etc.)
+        }
+    }
+
+    public void DecreaseColorCount(ColorsEnum color)
+    {
+        if (colorCounts[color] > 0)
+        {
+            colorCounts[color]--;
+            OnPaintChanged(color, colorCounts[color]);
+        }
+        else
+        { 
+            // you've run out for this color
+            // handle this case however you like (e.g. play a sound, show a message, etc.)
+        }
     }
 }

@@ -40,7 +40,7 @@ public class ColorPickerUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         if (isActive && newColor == pickerColor)
         {
             //If this is the same color and already active, then don't change anything
-            Debug.Log("This is already the color!");
+            //Debug.Log("This is already the color!");
             return;
         }    
 

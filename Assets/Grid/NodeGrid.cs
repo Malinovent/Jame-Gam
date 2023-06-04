@@ -65,6 +65,27 @@ public class NodeGrid : MonoBehaviour
         return grid[yInt].row[xInt];
     }
 
+    public List<Node> NodesFromWorldPoint(Vector3 worldPosition, float detectionRadius)
+    {
+        List<Node> detectedNodes = new List<Node>();
+
+        int startX = Mathf.Clamp(Mathf.RoundToInt((worldPosition.x - detectionRadius) / nodeSpacing), 0, width - 1);
+        int endX = Mathf.Clamp(Mathf.RoundToInt((worldPosition.x + detectionRadius) / nodeSpacing), 0, width - 1);
+
+        int startY = Mathf.Clamp(Mathf.RoundToInt((worldPosition.y - detectionRadius) / nodeSpacing), 0, height - 1);
+        int endY = Mathf.Clamp(Mathf.RoundToInt((worldPosition.y + detectionRadius) / nodeSpacing), 0, height - 1);
+
+        for (int y = startY; y <= endY; y++)
+        {
+            for (int x = startX; x <= endX; x++)
+            {
+                detectedNodes.Add(grid[y].row[x]);
+            }
+        }
+
+        return detectedNodes;
+    }
+
     public List<Node> GetNeighbours(Node node)
     {
         List<Node> neighbours = new List<Node>();
