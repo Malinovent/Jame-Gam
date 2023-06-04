@@ -9,7 +9,8 @@ public class MenuManager : MonoBehaviour
     [SerializeField] GameObject pauseMenu;
     [SerializeField] GameObject gameOverMenu;
     [SerializeField] GameObject UIAsset; 
-    [SerializeField] GameObject optionsMenu; 
+    [SerializeField] GameObject optionsMenu;
+    [SerializeField] AudioManager AudioManager; 
 
     public static Action OnGameOver;
 
@@ -34,17 +35,18 @@ public class MenuManager : MonoBehaviour
             if (pauseMenu.activeSelf)
             {
                 ClosePauseMenu();
-                
+                ButtonClick(); 
             }
             else if (optionsMenu.activeSelf)
             {
                 optionsMenu.SetActive(false);
-                OpenPauseMenu(); 
+                OpenPauseMenu();
+                ButtonClick(); 
             }
             else
             {
                 OpenPauseMenu();
-                
+                ButtonClick(); 
             }
         }
     }
@@ -84,18 +86,20 @@ public class MenuManager : MonoBehaviour
     {
         //To do - Menu scene
         Debug.Log("Quitting");
-        Application.Quit(); //TEMPORARY FIX FOR DEMO PURPOSES - REMOVE BEFORE FINAL RELEASE -
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
     }
 
     public void OpenPauseMenu()
     {
+        ButtonClick(); 
         pauseMenu.SetActive(true);
         UIAsset.SetActive(false); 
         Time.timeScale = 0;
     }
 
     public void ClosePauseMenu()
-    { 
+    {
+        ButtonClick(); 
         pauseMenu?.SetActive(false);
         UIAsset.SetActive(true); 
         Time.timeScale = 1;
@@ -108,6 +112,12 @@ public class MenuManager : MonoBehaviour
 
     public void SetFullScreen(bool isFull)
     {
+        ButtonClick(); 
         Screen.fullScreen = isFull;
+    }
+
+    public void ButtonClick()
+    {
+        AudioManager.Play("ButtonClick"); 
     }
 }

@@ -6,10 +6,24 @@ using System;
 public class AudioManager : MonoBehaviour
 {
     public Sound[] sounds;
+    [SerializeField]
+    private AudioSource sourceA;
+    [SerializeField]
+    private AudioSource sourceB;
+
+    public bool inGame = false; 
 
     private void Start()
     {
-        //Play("MainTheme");
+        if (inGame)
+        {
+            sourceA.Play(); 
+            StartCoroutine(MainTheme());
+        }
+        else
+        {
+            Play("MainTheme"); 
+        }
     }
 
     // Start is called before the first frame update
@@ -30,5 +44,11 @@ public class AudioManager : MonoBehaviour
     {
         Sound s = Array.Find(sounds, sound => sound.name == name);
         s.source.Play();
+    }
+
+    IEnumerator MainTheme()
+    {
+        yield return new WaitForSeconds(8f);
+        sourceB.Play(); 
     }
 }
