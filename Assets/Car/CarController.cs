@@ -23,6 +23,7 @@ public class CarController : MonoBehaviour
     // Additions for stop timer
     private float stopTimer = 0f; // to keep track of time car is stopped
     [SerializeField] private float stopThreshold = 5f; // maximum allowed stop time
+    [SerializeField] private GameObject carDeathPrefab; 
 
     [Header("Car Sound Effects")]
     [SerializeField] private AudioData carSuccess;
@@ -129,6 +130,7 @@ public class CarController : MonoBehaviour
         //PlayerLivesManager.DecreaseLives();
         LivesTracker.LoseLife();
         AudioManager_Mali.Instance.PlayAudioDataOnce(careFailureStop, this.transform.position);
+        Instantiate(carDeathPrefab, transform.position, Quaternion.identity);
         Cars.Remove(this);
         Destroy(gameObject);
     }

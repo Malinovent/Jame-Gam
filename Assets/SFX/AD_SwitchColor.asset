@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: AD_SwitchColor
   m_EditorClassIdentifier: 
   audioClip: {fileID: 8300000, guid: 47188ed8d39d46d4a8f1ef6d0f3c881a, type: 3}
-  volume: 1
+  volume: 0.25
   loop: 0
   spatialBlend: 0
   audioMixerGroup: {fileID: 0}
