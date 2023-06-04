@@ -265,6 +265,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1515929128653392523, guid: e98098f4587764749ab810db176a2073, type: 3}
+      propertyPath: m_SortingLayer
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1515929128653392523, guid: e98098f4587764749ab810db176a2073, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 3198581
+      objectReference: {fileID: 0}
     - target: {fileID: 8515750902933351208, guid: e98098f4587764749ab810db176a2073, type: 3}
       propertyPath: m_Name
       value: large_exhaust_1

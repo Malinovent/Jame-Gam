@@ -221,6 +221,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 6469577536315194889}
     m_Modifications:
+    - target: {fileID: 1279681170070804247, guid: ebd898b8d2de8da4dba95751fdc847c0, type: 3}
+      propertyPath: m_SortingLayer
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1279681170070804247, guid: ebd898b8d2de8da4dba95751fdc847c0, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 3198581
+      objectReference: {fileID: 0}
     - target: {fileID: 4967444640915676065, guid: ebd898b8d2de8da4dba95751fdc847c0, type: 3}
       propertyPath: m_Name
       value: medium_exhaust_1
