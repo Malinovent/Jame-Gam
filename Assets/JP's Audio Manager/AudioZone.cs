@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class WdAudioZone : MonoBehaviour
+public class AudioZone : MonoBehaviour
 {
     [SerializeField] private AudioData audioData;
 
