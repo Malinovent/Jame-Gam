@@ -21,20 +21,8 @@ public class Node : MonoBehaviour
         }
         set
         {
-            // decrement the count of the old color
-            /*if (currentColor != ColorsEnum.NONE)
-            {
-                PaintBrush.Singleton.DecreaseColorCount(currentColor);
-            }*/
-            // set the new color
             currentColor = value;
-            // increment the count of the new color
-           /* if (currentColor != ColorsEnum.NONE)
-            {
-                PaintBrush.Singleton.IncreaseColorCount(currentColor);
-            }
-            // update the visual color of the node (you need to implement this)
-            UpdateSpriteColor();*/
+            UpdateSpriteColor();
         }
     }
 

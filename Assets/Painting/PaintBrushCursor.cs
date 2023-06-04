@@ -59,7 +59,7 @@ public class PaintBrushCursor : MonoBehaviour
 
     private void UpdateAnimation(BrushStates brushState)
     {
-        Debug.Log("Updating animation");
+        //Debug.Log("Updating animation");
         if (brushState == BrushStates.PAINTING)
         {
             switch (BrushManager.CurrentBrushColor)

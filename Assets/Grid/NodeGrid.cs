@@ -16,6 +16,19 @@ public class NodeGrid : MonoBehaviour
     public GameObject nodePrefab;
     public NodeRow[] grid;
     
+    public static NodeGrid Singleton;
+
+    private void Awake()
+    {
+        if (Singleton == null)
+        {
+            Singleton = this;
+        }
+        else
+        {
+            Destroy(this);
+        }
+    }
 
 
     public void CreateGrid()
