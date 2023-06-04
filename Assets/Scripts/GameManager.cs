@@ -78,9 +78,9 @@ public class GameManager : MonoBehaviour
         return newTargetNode;
     }
 
-    public void SpawnFlag()
+    public void SpawnRandomFlag()
     {
-        int randomColor = Random.Range(0, SpawnerController.currentNumOfSpawners - 1);
+        int randomColor = Random.Range(0, SpawnerController.Singleton.instantiatedSpawner.Count - 1);
         bool shouldChangePosition = false;
 
         if(targetNodes.ContainsKey((ColorsEnum)randomColor))
@@ -130,7 +130,7 @@ public class GameManager : MonoBehaviour
     IEnumerator SetNewTargetRoutine()
     { 
         yield return new WaitForSeconds(actualSpawnTime);
-        SpawnFlag();
+        SpawnRandomFlag();
     }
 
     void ChangeFlag(ColorsEnum color, Vector3 newPosition)

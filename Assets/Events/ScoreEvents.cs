@@ -10,12 +10,15 @@ public class ScoreEvents
     [SerializeField] int minScoreTarget = 9999;
     [SerializeField] UnityEvent onActivate;
 
-    public void TryActivate(int score )
+    public bool TryActivate(int score )
     {
         if (score >= minScoreTarget)
         {
             Activate();
+            return true;
         }
+
+        return false;
     }
 
     private void Activate()

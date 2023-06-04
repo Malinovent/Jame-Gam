@@ -20,7 +20,11 @@ public class EventManager : MonoBehaviour
     { 
         foreach(var e in events) 
         {
-            e.TryActivate(score);
+            if(e.TryActivate(score))
+            {
+                events.Remove(e);
+                return;
+            }
         }
     }
 }
