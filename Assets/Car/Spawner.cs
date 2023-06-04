@@ -12,7 +12,7 @@ public class Spawner : MonoBehaviour
         if (!GameManager.flagNodes.ContainsKey(spawnerColor))
         {
             GameManager.Singleton.SpawnFlag(spawnerColor);
-            Debug.Log("Set Flag instead");
+            //Debug.Log("Set Flag instead");
             return;
         }
 

@@ -31,7 +31,7 @@ public class PaintBrush : MonoBehaviour
     };
 
 
-    private Dictionary<ColorsEnum, int> maxColorNodes  = new Dictionary<ColorsEnum, int>()
+    public Dictionary<ColorsEnum, int> maxColorNodes  = new Dictionary<ColorsEnum, int>()
     {
         { ColorsEnum.RED, 200 },
         { ColorsEnum.BLUE, 200 },
