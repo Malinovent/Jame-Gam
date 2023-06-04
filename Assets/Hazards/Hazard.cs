@@ -28,7 +28,8 @@ public class Hazard : MonoBehaviour
                     //node.ChangeColor(ColorsEnum.RED);
                     //PaintBrush.Singleton.TryIncreaseColorCount(node);
 
-                    node.isMutable = false;         
+                    node.isMutable = false;
+                    node.walkable = false;
                     occupiedNodes.Add(node);
                 }
             }
@@ -40,6 +41,7 @@ public class Hazard : MonoBehaviour
         foreach (Node node in occupiedNodes)
         {
             node.isMutable = true;
+            node.walkable = true;
         }
     }
 

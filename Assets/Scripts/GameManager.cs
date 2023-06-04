@@ -80,15 +80,17 @@ public class GameManager : MonoBehaviour
 
     public void Spawn()
     {
-        int randomColor = Random.Range(0,4);
+        int randomColor = Random.Range(0, SpawnerController.currentNumOfSpawners - 1);
         bool shouldChangePosition = false;
+
         if(targetNodes.ContainsKey((ColorsEnum)randomColor))
         {
             shouldChangePosition = true;
         }
+
         Node newNode = SetTargetColor((ColorsEnum)randomColor);
         actualSpawnTime = ReturnRandomCooldown();
-        StartCoroutine(SetNewTarget());
+        StartCoroutine(SetNewTargetRoutine());
 
         if(newNode == null) { return; }
         if(shouldChangePosition) 
@@ -97,7 +99,7 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            InstantiateTargetSprite(newNode);
+            InstantiateTargetFlagObject(newNode);
         }    
     }
 
@@ -110,7 +112,7 @@ public class GameManager : MonoBehaviour
         }
         Node newNode = SetTargetColor(color);
         actualSpawnTime = ReturnRandomCooldown();
-        StartCoroutine(SetNewTarget());
+        StartCoroutine(SetNewTargetRoutine());
 
         if(newNode == null) { return; }
 
@@ -120,12 +122,12 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            InstantiateTargetSprite(newNode);
+            InstantiateTargetFlagObject(newNode);
         }
     }
 
     //Spawning cooldown before the next target
-    IEnumerator SetNewTarget()
+    IEnumerator SetNewTargetRoutine()
     { 
         yield return new WaitForSeconds(actualSpawnTime);
         Spawn();
@@ -150,7 +152,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    void InstantiateTargetSprite(Node node)
+    void InstantiateTargetFlagObject(Node node)
     { 
         if(node == null) { return; }
         switch (node.CurrentColor)
@@ -168,7 +170,6 @@ public class GameManager : MonoBehaviour
                 flags[3] = Instantiate(YELLOWTargetSpritePrefab, node.worldPosition, Quaternion.identity);
                 break;
         }
-        //flags[(int)node.CurrentColor] = Instantiate(targetSpritePrefab, node.worldPosition, Quaternion.identity);
     }
    
     

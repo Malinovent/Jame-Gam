@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using System;
 
 public class SpawnerController : MonoBehaviour
 {
@@ -10,6 +11,20 @@ public class SpawnerController : MonoBehaviour
     private float nextSpawnTime;
 
     private GameObject parent;
+    public static int currentNumOfSpawners = 1;
+
+    public static Action<ColorsEnum> OnSpawnerAdded;
+
+
+    public void UnlockNextSpawner()
+    {
+        if(currentNumOfSpawners >= spawners.Count) { return; }
+        Spawner spawner = spawners[currentNumOfSpawners];
+        spawner.gameObject.SetActive(true);
+        currentNumOfSpawners++;
+
+        OnSpawnerAdded?.Invoke(spawner.spawnerColor);
+    }
 
     private void Start()
     {
@@ -28,13 +43,13 @@ public class SpawnerController : MonoBehaviour
 
     private void SetNextSpawnTime()
     {
-        nextSpawnTime = Time.time + Random.Range(minSpawnInterval, maxSpawnInterval);
+        nextSpawnTime = Time.time + UnityEngine.Random.Range(minSpawnInterval, maxSpawnInterval);
     }
 
     private void SpawnCar()
     {
         // Choose a random spawner from the list.
-        Spawner spawner = spawners[Random.Range(0, spawners.Count)];
+        Spawner spawner = spawners[UnityEngine.Random.Range(0, currentNumOfSpawners - 1)];
 
         // Tell the chosen spawner to spawn an enemy.
         spawner.SpawnCar(parent.transform);

@@ -126,10 +126,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c264270ae80b214989178a1a5f13170, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  points: 5
   speed: 2
   rotationSpeed: 5
   color: 3
   destination: {fileID: 0}
+  stopThreshold: 5
 --- !u!1001 &4540311887103127764
 PrefabInstance:
   m_ObjectHideFlags: 0

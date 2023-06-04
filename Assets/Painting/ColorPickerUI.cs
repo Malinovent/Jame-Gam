@@ -12,15 +12,35 @@ public class ColorPickerUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     private Vector3 originalScale = Vector3.one;
     private bool isActive = false;
     private bool isHovering = false;
+    [SerializeField] private bool startDeactivated = true;
 
     private void OnEnable()
     {
         BrushManager.OnColorChanged += TryActivateColor;
+        SpawnerController.OnSpawnerAdded += TryEnableThisObject;
     }
 
-    private void OnDisable()
+    private void OnDestroy()
     {
         BrushManager.OnColorChanged -= TryActivateColor;
+        SpawnerController.OnSpawnerAdded -= TryEnableThisObject;
+    }
+
+    void Start()
+    {
+        if (startDeactivated)
+        { 
+            this.gameObject.SetActive(false);
+        }
+    }
+
+    public void TryEnableThisObject(ColorsEnum spawnerColor)
+    {
+        Debug.Log("Try Enabling the color picker for color: " + spawnerColor.ToString());
+        if (spawnerColor == pickerColor)
+        {
+            this.gameObject.SetActive(true);
+        }
     }
 
     public void PickThisColor()

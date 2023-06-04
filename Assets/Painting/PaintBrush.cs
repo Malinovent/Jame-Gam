@@ -300,7 +300,7 @@ public class PaintBrush : MonoBehaviour
         {
             IncreaseColorCount(node.CurrentColor); // Decrease the count for the color being painted over
             Debug.Log("This color node has reverted from " + node.CurrentColor);
-            node.CurrentColor = ColorsEnum.NONE; ;
+            node.CurrentColor = ColorsEnum.NONE; 
         }
     }
 }
