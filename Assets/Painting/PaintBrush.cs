@@ -270,6 +270,7 @@ public class PaintBrush : MonoBehaviour
 
     public void IncreaseColorCount(ColorsEnum color)
     {
+        if (Time.timeScale == 0) { return; }
         if (colorCounts[color] < maxColorNodes[color])
         {
             colorCounts[color]++;
@@ -286,6 +287,7 @@ public class PaintBrush : MonoBehaviour
 
     public void DecreaseColorCount(ColorsEnum color)
     {
+        if(Time.timeScale == 0) { return; }
         if (colorCounts[color] > 0)
         {
             colorCounts[color]--;
