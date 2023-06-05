@@ -29,7 +29,10 @@ public class PaintBrushCursor : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
+
+        //DontDestroyOnLoad(this.gameObject);
     }
+
 
     private void OnEnable()
     {

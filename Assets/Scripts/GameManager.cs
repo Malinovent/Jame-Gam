@@ -114,10 +114,17 @@ public class GameManager : MonoBehaviour
         actualSpawnTime = ReturnRandomCooldown();
         StartCoroutine(SetNewTargetRoutine());
 
-        if(newNode == null) { return; }
+        if(newNode == null) 
+        { 
+            Debug.LogWarning("newNode is null. Returning.");
+            return; 
+        }
 
         if (shouldChangePosition)
         {
+            Debug.Log(newNode);
+            Debug.Log(newNode.CurrentColor);
+            Debug.Log(newNode.worldPosition);
             ChangeFlag(newNode.CurrentColor, newNode.worldPosition);
         }
         else
@@ -180,5 +187,10 @@ public class GameManager : MonoBehaviour
     private void OnDisable()
     {
         SpawnerController.OnSpawnerAdded -= SpawnFlag;
+    }
+
+    private void OnDestroy()
+    {
+        flagNodes.Clear();
     }
 }

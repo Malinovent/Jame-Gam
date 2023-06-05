@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class InputManager : MonoBehaviour
 {
@@ -14,6 +15,7 @@ public class InputManager : MonoBehaviour
     public static bool yellowUnlocked = false;
 
 
+
     //Singleton
     private void Awake()
     {
@@ -23,7 +25,7 @@ public class InputManager : MonoBehaviour
         }
         else
         {
-            Destroy(this);
+            Destroy(this.gameObject);
         }
 
         DontDestroyOnLoad(gameObject);
@@ -92,6 +94,34 @@ public class InputManager : MonoBehaviour
             {
                 BrushManager.SetBrushColor(ColorsEnum.YELLOW);
             }
+        }
+    }
+
+    private void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if (scene.buildIndex == 0)
+        {
+            redUnlocked = true;
+            blueUnlocked = true;
+            greenUnlocked = true;
+            yellowUnlocked = true;
+        }
+        else 
+        {
+            redUnlocked = true;
+            blueUnlocked = false;
+            greenUnlocked = false;
+            yellowUnlocked = false;
         }
     }
 }

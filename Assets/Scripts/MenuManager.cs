@@ -90,6 +90,8 @@ public class MenuManager : MonoBehaviour
         //To do - Menu scene
         Debug.Log("Quitting");
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
+        ScoreTracker.Score = 0;
+        LivesTracker.InitializeLives();
     }
 
     public void OpenPauseMenu()

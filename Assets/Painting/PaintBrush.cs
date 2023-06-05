@@ -22,6 +22,8 @@ public class PaintBrush : MonoBehaviour
     private LineRenderer currentStroke;
     private Material currentPaintMaterial;
 
+    private bool isBrushStroking = false;
+
     private Dictionary<ColorsEnum, int> colorCounts = new Dictionary<ColorsEnum, int>()
     {
         { ColorsEnum.RED, 200 },
@@ -140,29 +142,9 @@ public class PaintBrush : MonoBehaviour
                 PaintNode(node);
             }          
         }
+
         AddPointToLineRenderer(GetMouseWorldPosition());
-        lastMousePosition = currentPosition;
-        
-    }
-
-    void PaintNode(Node node)
-    {
-        if (!node.isMutable)
-        {
-            BrushManager.SetBrushState(BrushStates.NONE);
-            return;
-        }
-
-        if (node.CurrentColor != ColorsEnum.NONE)
-        {
-            IncreaseColorCount(node.CurrentColor); // Decrease the count for the color being painted over
-        }
-
-        // Debug.Log("Found node at grid location: " + node.gridX + ", " + node.gridY);
-        node.ChangeColor(BrushManager.CurrentBrushColor);
-
-        DecreaseColorCount(BrushManager.CurrentBrushColor);
-        OnGridChanged?.Invoke();
+        lastMousePosition = currentPosition;    
     }
 
     Node GetNodeFromPosition(Vector3 position)
@@ -216,6 +198,35 @@ public class PaintBrush : MonoBehaviour
         return node;
     }
 
+    void PaintNode(Node node)
+    {
+        if (!node.isMutable)
+        {
+            //Keep the state to painting so that the brush can continue painting but return from this statement
+            //To not paint this node.
+            //However, we need to stop the linerender
+            //BrushManager.SetBrushState(BrushStates.NONE);
+            isBrushStroking = false;
+            return;
+        }
+
+        if (isBrushStroking == false)
+        {
+            PaintBrushStrokes();
+        }
+
+        if (node.CurrentColor != ColorsEnum.NONE)
+        {
+            IncreaseColorCount(node.CurrentColor); // Decrease the count for the color being painted over
+        }
+
+        // Debug.Log("Found node at grid location: " + node.gridX + ", " + node.gridY);
+        node.ChangeColor(BrushManager.CurrentBrushColor);
+
+        DecreaseColorCount(BrushManager.CurrentBrushColor);
+        OnGridChanged?.Invoke();
+    }
+
     public void PaintNodes()
     {
         Vector3 worldPos = GetMouseWorldPosition();
@@ -228,7 +239,8 @@ public class PaintBrush : MonoBehaviour
         {
             if (!node.isMutable)
             {
-                BrushManager.SetBrushState(BrushStates.NONE);
+                //BrushManager.SetBrushState(BrushStates.NONE);
+                isBrushStroking = false;
                 continue;
             }
 
@@ -252,6 +264,7 @@ public class PaintBrush : MonoBehaviour
 
     private void PaintBrushStrokes()
     {
+        isBrushStroking = true;
         GameObject lineObject = Instantiate(strokePrefab);
         currentStroke = lineObject.GetComponent<LineRenderer>();
         currentStroke.material = currentPaintMaterial;
@@ -264,6 +277,7 @@ public class PaintBrush : MonoBehaviour
 
     void AddPointToLineRenderer(Vector3 point)
     {
+        if(isBrushStroking == false) { return; }
         currentStroke.positionCount++;
         currentStroke.SetPosition(currentStroke.positionCount - 1, point);
     }

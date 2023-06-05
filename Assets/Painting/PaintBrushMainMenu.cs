@@ -46,7 +46,7 @@ public class PaintBrushMainMenu : MonoBehaviour
                 DoPaint();
                 break;
             case BrushStates.ERASING:
-                DoErase();
+                //DoErase();
                 break;
         }
     }
@@ -73,6 +73,7 @@ public class PaintBrushMainMenu : MonoBehaviour
 
     void DoPaint()
     {
+        Debug.Log("Painting!");
         AddPointToLineRenderer(GetMouseWorldPosition());
     }
 

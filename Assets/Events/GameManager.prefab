@@ -30,7 +30,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6598862147712773156
 MonoBehaviour:
@@ -44,8 +44,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54925c2e2514ca84dbb3c628203ae57b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minSpawnTime: 60
-  maxSpawnTime: 120
+  minSpawnTime: 30
+  maxSpawnTime: 60
   REDTargetSpritePrefab: {fileID: 2693528105198472724, guid: 06040be207f9cc54ca64a56c5f118dd0, type: 3}
   BLUETargetSpritePrefab: {fileID: 2693528105198472724, guid: c761122e609a6e7449c693a635b045f5, type: 3}
   GREENTargetSpritePrefab: {fileID: 2693528105198472724, guid: a14ff256a3953124493bd458b2410893, type: 3}
