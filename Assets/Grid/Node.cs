@@ -58,6 +58,14 @@ public class Node : MonoBehaviour
         }
     }
 
+    public void ChangeColor(Color newColor)
+    {
+        if (isMutable)
+        {
+            UpdateSpriteRendererColorDirectly(newColor);
+        }
+    }
+
     public Color GetColorFromEnum()
     {
         Color color;
@@ -85,6 +93,21 @@ public class Node : MonoBehaviour
 
         //Debug.Log("Returning enum: " + CurrentColor + " to actual color: " + color);
         return color;
+    }
+
+    public void UpdateSpriteRendererColorDirectly(Color newColor)
+    {
+        //To do delete this line when ready for build
+        SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
+
+        if (spriteRenderer != null)
+        {
+            spriteRenderer.color = newColor;
+        }
+        else
+        {
+            Debug.LogWarning("No SpriteRenderer found on Node object.");
+        }
     }
 
     public void UpdateSpriteColor()

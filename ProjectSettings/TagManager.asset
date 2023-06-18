@@ -50,11 +50,11 @@ TagManager:
   - name: Brush
     uniqueID: 3342326189
     locked: 0
-  - name: Car
-    uniqueID: 3198581
-    locked: 0
   - name: Obstacles
     uniqueID: 3550139901
+    locked: 0
+  - name: Car
+    uniqueID: 3198581
     locked: 0
   - name: Cursor
     uniqueID: 1140149247

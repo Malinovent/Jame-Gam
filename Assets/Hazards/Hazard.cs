@@ -33,6 +33,7 @@ public class Hazard : MonoBehaviour
 
                     node.isMutable = false;
                     node.isWalkable = false;
+                    node.UpdateSpriteRendererColorDirectly(Color.black);
                     occupiedNodes.Add(node);
                 }
             }

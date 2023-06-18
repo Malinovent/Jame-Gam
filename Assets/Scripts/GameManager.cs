@@ -19,6 +19,9 @@ public class GameManager : MonoBehaviour
 
     private GameObject[] flags = new GameObject[4];
 
+    [SerializeField] int spawningPaddingInNodes_WIDTH = 3;
+    [SerializeField] int spawningPaddingInNodes_HEIGHT = 3;
+
     public static GameManager Singleton;
 
     private void Awake()
@@ -59,7 +62,8 @@ public class GameManager : MonoBehaviour
         }
 
         // Get a random mutable node from the grid
-        Node newTargetNode = nodeGrid.GetRandomMutableNode();
+        //Node newTargetNode = nodeGrid.GetRandomMutableNode();
+        Node newTargetNode = GetValidSpawnNode();
 
         // If there are no mutable nodes, return
         if (newTargetNode == null)
@@ -122,9 +126,9 @@ public class GameManager : MonoBehaviour
 
         if (shouldChangePosition)
         {
-            Debug.Log(newNode);
-            Debug.Log(newNode.CurrentColor);
-            Debug.Log(newNode.worldPosition);
+           // Debug.Log(newNode);
+            //Debug.Log(newNode.CurrentColor);
+           // Debug.Log(newNode.worldPosition);
             ChangeFlag(newNode.CurrentColor, newNode.worldPosition);
         }
         else
@@ -177,6 +181,41 @@ public class GameManager : MonoBehaviour
                 flags[3] = Instantiate(YELLOWTargetSpritePrefab, node.worldPosition, Quaternion.identity);
                 break;
         }
+    }
+
+    private Node GetValidSpawnNode()
+    {
+        // Convert 2D grid array to a list
+        List<Node> allNodes = new List<Node>();
+        foreach (NodeRow nodeRow in nodeGrid.grid)
+        {
+            foreach (Node node in nodeRow.row)
+            {
+                allNodes.Add(node);
+            }
+        }
+
+        // Shuffle the list
+        for (int i = 0; i < allNodes.Count; i++)
+        {
+            Node temp = allNodes[i];
+            int randomIndex = Random.Range(i, allNodes.Count);
+            allNodes[i] = allNodes[randomIndex];
+            allNodes[randomIndex] = temp;
+        }
+
+
+        // Check each node until one fits the criteria
+        foreach (Node node in allNodes)
+        {
+            if (nodeGrid.CanFit(node, spawningPaddingInNodes_WIDTH, spawningPaddingInNodes_HEIGHT))
+            {
+                return node;
+            }
+        }
+
+        // Return null if no node fits the criteria
+        return null;
     }
 
     private void OnEnable()

@@ -10,6 +10,10 @@ public class HazardSpawner : MonoBehaviour
     [SerializeField] private float minSpawnTime = 1f;
     [SerializeField] private float maxSpawnTime = 5f;
 
+
+    [SerializeField] int spawningPaddingInNodes_WIDTH = 3;
+    [SerializeField] int spawningPaddingInNodes_HEIGHT = 3;
+
     private void Start()
     {
         StartCoroutine(SpawnHazardRoutine());
@@ -59,10 +63,11 @@ public class HazardSpawner : MonoBehaviour
             allNodes[randomIndex] = temp;
         }
 
+
         // Check each node until one fits the criteria
         foreach (Node node in allNodes)
         {
-            if (nodeGrid.CanFit(node, hazard.Width, hazard.Height))
+            if (nodeGrid.CanFit(node, hazard.Width + spawningPaddingInNodes_WIDTH, hazard.Height + spawningPaddingInNodes_HEIGHT))
             {
                 return node;
             }

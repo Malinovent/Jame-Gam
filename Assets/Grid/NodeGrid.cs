@@ -15,7 +15,10 @@ public class NodeGrid : MonoBehaviour
     public float nodeSpacing = 1f;
     public GameObject nodePrefab;
     public NodeRow[] grid;
-    
+
+    [SerializeField] int spawningPaddingInNodes_WIDTH = 3;
+    [SerializeField] int spawningPaddingInNodes_HEIGHT = 3;
+
     public static NodeGrid Singleton;
 
     private void Awake()
@@ -160,6 +163,8 @@ public class NodeGrid : MonoBehaviour
 
         grid = null;
     }
+
+
 
     public bool CanFit(Node startNode, int width, int height)
     {
